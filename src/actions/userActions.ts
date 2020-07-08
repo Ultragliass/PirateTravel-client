@@ -69,13 +69,14 @@ export const loginUserAction = (username: string, password: string) => {
         },
       });
 
-      const { token, userData } = response.data;
+      const { token, userData, userType } = response.data;
 
       saveToken(token);
 
       dispatch({
         type: Actions.loginUser,
         payload: {
+          userType,
           userData,
         },
       });
@@ -85,10 +86,10 @@ export const loginUserAction = (username: string, password: string) => {
   };
 };
 
-export const registerUserAction = (userData: IRegister) => {
+export const registerUserAction = (user: IRegister) => {
   return async (dispatch: Dispatch<IAction>): Promise<void> => {
-    const isValid = validateInputs(dispatch, ...Object.values({...userData}));
-    
+    const isValid = validateInputs(dispatch, ...Object.values({ ...user }));
+
     if (!isValid) {
       return;
     }
@@ -103,7 +104,18 @@ export const registerUserAction = (userData: IRegister) => {
           "Content-Type": "application/json",
         },
         data: {
-          ...userData,
+          ...user,
+        },
+      });
+
+      const { token, userData } = response.data;
+
+      saveToken(token);
+
+      dispatch({
+        type: Actions.loginUser,
+        payload: {
+          userData,
         },
       });
     } catch (error) {

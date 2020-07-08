@@ -13,11 +13,20 @@ export function startLoading(dispatch: Dispatch<IAction>): void {
 export function displayError(dispatch: Dispatch<IAction>, err: AxiosError) {
   const error = err.response?.data.msg;
 
-  if (error.includes("fails to match")) {
+  if (error.includes('"password" with')) {
     return dispatch({
       type: Actions.displayError,
       payload: {
         error: "PASSWORD DOES NOT MEET STANDARDS.",
+      },
+    });
+  }
+
+  if (error.includes('"name" with' || '"lastname" with')) {
+    return dispatch({
+      type: Actions.displayError,
+      payload: {
+        error: "NAME AND LAST NAME MAYBE ONLY BE ALPHABETICAL.",
       },
     });
   }

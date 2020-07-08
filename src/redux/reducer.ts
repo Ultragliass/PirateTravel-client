@@ -24,6 +24,8 @@ export const reducer = (state: IState = initState, action: IAction): IState => {
     case Actions.loginUser: {
       const { userType, userData } = action.payload;
 
+      console.log(userData)
+
       return {
         ...state,
         userData,
