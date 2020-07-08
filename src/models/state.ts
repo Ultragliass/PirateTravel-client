@@ -1,13 +1,8 @@
 import { IVacation } from "./vacation";
-
-interface User {
-  username: string;
-  name: string;
-  lastname: string;
-}
+import { IUser } from "./user";
 
 export interface IState {
-  username: null | User;
+  userData: null | IUser;
   isAdmin: boolean;
   vacations: IVacation[];
   error: null | string;

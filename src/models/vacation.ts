@@ -1,4 +1,5 @@
 export interface IVacation {
+  id: number;
   description: string;
   destination: string;
   image: string;
