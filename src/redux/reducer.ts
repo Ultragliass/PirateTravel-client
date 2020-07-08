@@ -15,6 +15,8 @@ export enum Actions {
   logoutUser = "LOGOUT_USER",
   getVacations = "GET_VACATIONS",
   toggleFollow = "TOGGLE_FOLLOW",
+  loadingStart = "LOADING_START",
+  displayError = "DISPLAY_ERROR",
 }
 
 export const reducer = (state: IState = initState, action: IAction): IState => {
@@ -28,6 +30,7 @@ export const reducer = (state: IState = initState, action: IAction): IState => {
         isAdmin: userType === "admin",
         isLoggedIn: true,
         isLoading: false,
+        error: null,
       };
     }
 
@@ -41,6 +44,8 @@ export const reducer = (state: IState = initState, action: IAction): IState => {
       return {
         ...state,
         vacations,
+        isLoading: false,
+        error: null,
       };
     }
 
@@ -62,6 +67,25 @@ export const reducer = (state: IState = initState, action: IAction): IState => {
       return {
         ...state,
         vacations: modifiedVacations,
+        isLoading: false,
+        error: null,
+      };
+    }
+
+    case Actions.loadingStart: {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    }
+
+    case Actions.displayError: {
+      const { error } = action.payload;
+
+      return {
+        ...state,
+        error,
+        isLoading: false,
       };
     }
 
