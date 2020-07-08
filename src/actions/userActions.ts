@@ -27,11 +27,12 @@ export const handleReturningUserAction = () => {
         },
       });
 
-      const { userData } = response.data;
+      const { userData, userType } = response.data;
 
       dispatch({
         type: Actions.loginUser,
         payload: {
+          userType,
           userData,
         },
       });
