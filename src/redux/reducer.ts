@@ -17,7 +17,7 @@ export enum Actions {
   toggleFollow = "TOGGLE_FOLLOW",
 }
 
-export const redcer = (state: IState = initState, action: IAction): IState => {
+export const reducer = (state: IState = initState, action: IAction): IState => {
   switch (action.type) {
     case Actions.loginUser: {
       const { userType, userData } = action.payload;
