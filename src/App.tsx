@@ -13,11 +13,15 @@ interface AppProps {
 }
 
 function _App(props: AppProps) {
-  useEffect(()=> {
+  useEffect(() => {
     props.handleReturningUser();
-  }, [null]);
+  }, [null]); //Null so it will become a ComponentDidMount eqilivent, rather than ComponentDidUpdate.
 
-  return <Navbar />;
+  return (
+    <>
+      <Navbar />
+    </>
+  );
 }
 
 const mapStateToProps = (state: IState) => {

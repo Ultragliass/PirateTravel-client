@@ -124,3 +124,14 @@ export const registerUserAction = (user: IRegister) => {
     }
   };
 };
+
+export const logoutUserAction = () => {
+  return (dispatch: Dispatch<IAction>): void => {
+    clearToken();
+
+    dispatch({
+      type: Actions.logoutUser,
+      payload: {},
+    });
+  };
+};
