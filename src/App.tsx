@@ -15,7 +15,7 @@ interface AppProps {
 function _App(props: AppProps) {
   useEffect(() => {
     props.handleReturningUser();
-  }, [null]); //Null so it will become a ComponentDidMount eqilivent, rather than ComponentDidUpdate.
+  }, []);
 
   return (
     <>

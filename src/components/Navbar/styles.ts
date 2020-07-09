@@ -4,16 +4,25 @@ export const useNavbarStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
+      textAlign: "center",
     },
     title: {
       flexGrow: 1,
+      fontSize: "15px",
+      [theme.breakpoints.up("md")]: {
+        fontSize: "30px",
+      },
+      [theme.breakpoints.up("lg")]: {
+        fontSize: "50px",
+      },
+      textAlign: "center",
     },
     search: {
       position: "relative",
       borderRadius: theme.shape.borderRadius,
-      backgroundColor: fade(theme.palette.common.white, 0.15),
+      backgroundColor: fade(theme.palette.common.white, 0.5),
       "&:hover": {
-        backgroundColor: fade(theme.palette.common.white, 0.25),
+        backgroundColor: fade(theme.palette.common.white, 0.75),
       },
       marginRight: theme.spacing(1),
       marginLeft: 0,
@@ -24,6 +33,7 @@ export const useNavbarStyles = makeStyles((theme: Theme) =>
       },
     },
     searchIcon: {
+      color: "black",
       padding: theme.spacing(0, 2),
       height: "100%",
       position: "absolute",
@@ -45,6 +55,7 @@ export const useNavbarStyles = makeStyles((theme: Theme) =>
       marginRight: theme.spacing(3),
     },
     inputInput: {
+      color: "black",
       padding: theme.spacing(1, 1, 1, 0),
       paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
       transition: theme.transitions.create("width"),

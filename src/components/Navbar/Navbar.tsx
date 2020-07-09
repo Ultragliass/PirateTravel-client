@@ -41,10 +41,10 @@ export function _Navbar(props: NavbarProps) {
             <Typography
               color="textPrimary"
               className={classes.title}
-              variant="h6"
+              variant="body1"
               noWrap
             >
-              {!userData ? "Welcome!" : `Hello, ${userData.username}!`}
+              {!userData ? "Welcome to Vac(oron)ation!" : null}
             </Typography>
             {isLoggedIn ? (
               <>
