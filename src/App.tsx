@@ -1,33 +1,27 @@
 import { handleReturningUserAction } from "./actions/userActions";
 import { IState } from "./models/state";
-import React from "react";
+import "fontsource-roboto";
 import "./App.css";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { Navbar } from "./components/Navbar";
 
 interface AppProps {
   handleReturningUser(): void;
-  isLoggedIn: boolean;
-  isAdmin: boolean;
   isLoading: boolean;
   error: string | null;
 }
 
-class _App extends React.Component<AppProps> {
-  render() {
-    return <div>hi!</div>;
-  }
+function _App(props: AppProps) {
+  useEffect(()=> {
+    props.handleReturningUser();
+  }, [null]);
 
-  async componentDidMount() {
-    const { handleReturningUser } = this.props;
-
-    await handleReturningUser();
-  }
+  return <Navbar />;
 }
 
 const mapStateToProps = (state: IState) => {
   return {
-    isLoggedIn: state.isLoggedIn,
-    isAdmin: state.isAdmin,
     isLoading: state.isLoading,
     error: state.error,
   };
