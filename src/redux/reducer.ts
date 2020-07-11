@@ -23,7 +23,7 @@ export const reducer = (state: IState = initState, action: IAction): IState => {
   switch (action.type) {
     case Actions.loginUser: {
       const { userType, userData } = action.payload;
-      
+
       return {
         ...state,
         userData,

@@ -6,5 +6,5 @@ export function AdminRoute({ isLoggedIn, isAdmin, ...props }: any) {
     return <Redirect to="/vacations" />;
   }
 
-  return <Route {...props} exact />;
+  return <Route {...props} />;
 }

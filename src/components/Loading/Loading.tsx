@@ -17,4 +17,3 @@ export function _Loading(props: LoadingProps) {
     </Backdrop>
   );
 }
-

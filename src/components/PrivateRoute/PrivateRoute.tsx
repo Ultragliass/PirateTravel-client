@@ -6,5 +6,5 @@ export function PrivateRoute({ isLoggedIn, ...props }: any) {
     return <Redirect to="/" />;
   }
 
-  return <Route exact {...props} />;
+  return <Route {...props} />;
 }

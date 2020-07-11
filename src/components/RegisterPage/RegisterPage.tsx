@@ -117,9 +117,9 @@ export function _RegisterPage(props: RegisterPageProps) {
             </Grid>
 
             <Grid item xs={12}>
-              <p>
-                * Password should be at least 8 characters long, and include
-                at least one number, and a lowercase and uppercase letter.
+              <p className={classes.highlight}>
+                * Password should be at least 8 characters long, and include at
+                least one number, and a lowercase and uppercase letter.
               </p>
             </Grid>
           </Grid>

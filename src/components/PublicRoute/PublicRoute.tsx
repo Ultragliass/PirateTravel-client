@@ -6,5 +6,5 @@ export function PublicRoute({ isLoggedIn, ...props }: any) {
     return <Redirect to="/vacations" />;
   }
 
-  return <Route exact {...props} />;
+  return <Route {...props} />;
 }

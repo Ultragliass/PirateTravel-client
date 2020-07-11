@@ -14,7 +14,6 @@ import { PublicRoute } from "./components/PublicRoute/PublicRoute";
 import { RegisterPage } from "./components/RegisterPage";
 import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 
-
 interface AppProps {
   handleReturningUser(): void;
   isLoggedIn: boolean;

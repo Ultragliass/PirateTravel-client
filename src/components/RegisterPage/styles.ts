@@ -6,7 +6,7 @@ export const useRegisterPageStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    color: "white",
+    color: "#fff",
   },
   icon: {
     margin: theme.spacing(1),
@@ -20,8 +20,11 @@ export const useRegisterPageStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
   input: {
-    backgroundColor: "white",
+    backgroundColor: "#fff",
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
+  },
+  highlight: {
+    fontWeight: "bold",
   },
 }));

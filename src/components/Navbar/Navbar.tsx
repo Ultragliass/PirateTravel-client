@@ -49,7 +49,7 @@ export function _Navbar(props: NavbarProps) {
                     placeholder="Search…"
                     classes={{
                       root: classes.inputRoot,
-                      input: classes.inputInput,
+                      input: classes.input,
                     }}
                   />
                 </div>
