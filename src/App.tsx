@@ -12,6 +12,8 @@ import { Switch, Redirect } from "react-router-dom";
 import { IState } from "./models/state";
 import { PublicRoute } from "./components/PublicRoute/PublicRoute";
 import { RegisterPage } from "./components/RegisterPage";
+import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
+
 
 interface AppProps {
   handleReturningUser(): void;
@@ -31,11 +33,15 @@ function _App(props: AppProps) {
       <Navbar />
 
       <Switch>
-        <PublicRoute isLoggedIn={isLoggedIn} exact path="/register">
+        <PrivateRoute isLoggedIn={isLoggedIn} path="/vacations">
+          <div>nigger</div>
+        </PrivateRoute>
+
+        <PublicRoute isLoggedIn={isLoggedIn} path="/register">
           <RegisterPage />
         </PublicRoute>
 
-        <PublicRoute isLoggedIn={isLoggedIn} exact path="/">
+        <PublicRoute isLoggedIn={isLoggedIn} path="/">
           <LoginPage />
         </PublicRoute>
 

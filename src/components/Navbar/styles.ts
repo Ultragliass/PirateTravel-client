@@ -41,12 +41,10 @@ export const useNavbarStyles = makeStyles((theme: Theme) =>
       color: "inherit",
     },
     appBar: {
-      backgroundImage: "url(/images/header.jpg)",
-      backgroundRepeat: "no-repeat",
-      backgroundSize: "cover",
+      backgroundColor: "#ffffff33"
     },
     button: {
-      marginRight: theme.spacing(3),
+      marginLeft: theme.spacing(3),
       color: "white",
     },
     inputInput: {
