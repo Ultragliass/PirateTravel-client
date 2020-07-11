@@ -7,9 +7,9 @@ export const useNavbarStyles = makeStyles((theme: Theme) =>
     },
     logo: {
       flexGrow: 1,
-      display: "none",
+      visibility: "hidden",
       [theme.breakpoints.up("sm")]: {
-        display: "block",
+        visibility: "visible",
       },
     },
     search: {

@@ -1,5 +1,5 @@
 import { loginUserAction } from "../../actions/userActions";
-import _LoginPage from "./LoginPage";
+import { _LoginPage } from "./LoginPage";
 import { connect } from "react-redux";
 
 const mapDispatchToProps = {

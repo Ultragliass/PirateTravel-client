@@ -13,8 +13,10 @@ interface LoginPageProps {
   loginUser(username: string, password: string): void;
 }
 
-export default function _LoginPage(props: LoginPageProps) {
+export function _LoginPage(props: LoginPageProps) {
   const { loginUser } = props;
+
+  const classes = useLoginPageStyles();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -23,9 +25,7 @@ export default function _LoginPage(props: LoginPageProps) {
     const { value, name } = event.currentTarget;
 
     if (name === "username") {
-      setUsername(value);
-
-      return;
+      return setUsername(value);
     }
 
     setPassword(value);
@@ -37,36 +37,35 @@ export default function _LoginPage(props: LoginPageProps) {
     loginUser(username, password);
   };
 
-  const classes = useLoginPageStyles();
   return (
     <Container component="main" maxWidth="xs">
       <div className={classes.flex}>
         <Avatar className={classes.icon}>
           <LockOutlined />
         </Avatar>
-        <Typography variant="h5">
-          Login
-        </Typography>
+        <Typography variant="h5">Login</Typography>
         <form className={classes.form} onSubmit={handleUserLogin}>
           <TextField
             variant="filled"
-            margin="normal"
-            fullWidth
-            label="Username"
             name="username"
+            label="Username"
+            margin="normal"
             autoFocus
+            fullWidth
             className={classes.input}
             onChange={handleInputChange}
+            value={username}
           />
           <TextField
             variant="filled"
-            margin="normal"
-            fullWidth
-            label="Password"
             name="password"
+            label="Password"
+            margin="normal"
             type="password"
+            fullWidth
             className={classes.input}
             onChange={handleInputChange}
+            value={password}
           />
           <Button
             type="submit"

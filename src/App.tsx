@@ -11,6 +11,7 @@ import { LoginPage } from "./components/LoginPage";
 import { Switch, Redirect } from "react-router-dom";
 import { IState } from "./models/state";
 import { PublicRoute } from "./components/PublicRoute/PublicRoute";
+import { RegisterPage } from "./components/RegisterPage";
 
 interface AppProps {
   handleReturningUser(): void;
@@ -31,7 +32,7 @@ function _App(props: AppProps) {
 
       <Switch>
         <PublicRoute isLoggedIn={isLoggedIn} exact path="/register">
-
+          <RegisterPage />
         </PublicRoute>
 
         <PublicRoute isLoggedIn={isLoggedIn} exact path="/">
