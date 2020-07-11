@@ -71,7 +71,7 @@ export function _Navbar(props: NavbarProps) {
                 </Link>
 
                 <Link to="/register">
-                  <IconButton edge="end">
+                  <IconButton edge="end" className={classes.button}>
                     <AssignmentInd />
                   </IconButton>
                 </Link>
@@ -80,7 +80,7 @@ export function _Navbar(props: NavbarProps) {
 
             {isLoggedIn && isAdmin ? (
               <Link to="/statistics">
-                <IconButton edge="end">
+                <IconButton edge="end" className={classes.button}>
                   <Equalizer />
                 </IconButton>
               </Link>
