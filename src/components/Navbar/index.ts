@@ -7,7 +7,6 @@ const mapStateToProps = (state: IState) => {
   return {
     isLoggedIn: state.isLoggedIn,
     isAdmin: state.isAdmin,
-    userData: state.userData,
   };
 };
 

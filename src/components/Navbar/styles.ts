@@ -4,18 +4,9 @@ export const useNavbarStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
-      textAlign: "center",
     },
-    title: {
+    logo: {
       flexGrow: 1,
-      fontSize: "15px",
-      [theme.breakpoints.up("md")]: {
-        fontSize: "30px",
-      },
-      [theme.breakpoints.up("lg")]: {
-        fontSize: "50px",
-      },
-      textAlign: "center",
     },
     search: {
       position: "relative",

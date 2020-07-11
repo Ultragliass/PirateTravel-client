@@ -3,9 +3,9 @@ import React from "react";
 import {
   AppBar,
   Toolbar,
-  Typography,
   InputBase,
   IconButton,
+  Typography,
 } from "@material-ui/core";
 import {
   Search,
@@ -15,19 +15,17 @@ import {
   MeetingRoom,
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
-import { IUser } from "../../models/user";
 import { HideOnScroll } from "../HideOnScroll/HideOnScroll";
 
 interface NavbarProps {
   isLoggedIn: boolean;
   isAdmin: boolean;
-  userData: null | IUser;
   logoutUser(): void;
 }
 
 export function _Navbar(props: NavbarProps) {
   const classes = useNavbarStyles();
-  const { isLoggedIn, isAdmin, userData, logoutUser } = props;
+  const { isLoggedIn, isAdmin, logoutUser } = props;
 
   const handleUserLogout = () => {
     logoutUser();
@@ -38,13 +36,8 @@ export function _Navbar(props: NavbarProps) {
       <HideOnScroll {...props}>
         <AppBar position="fixed" className={classes.appBar}>
           <Toolbar>
-            <Typography
-              color="textPrimary"
-              className={classes.title}
-              variant="body1"
-              noWrap
-            >
-              {!userData ? "Welcome to Vac(oron)ation!" : null}
+            <Typography variant="body1" className={classes.logo} noWrap>
+              <img src="/images/logo.png" alt="logo" style={{ width: 50 }} />
             </Typography>
             {isLoggedIn ? (
               <>

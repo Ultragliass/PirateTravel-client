@@ -5,6 +5,7 @@ import "./App.css";
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Navbar } from "./components/Navbar";
+import { CssBaseline } from "@material-ui/core";
 
 interface AppProps {
   handleReturningUser(): void;
@@ -19,6 +20,7 @@ function _App(props: AppProps) {
 
   return (
     <>
+      <CssBaseline />
       <Navbar />
     </>
   );
