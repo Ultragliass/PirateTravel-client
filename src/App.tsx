@@ -35,14 +35,14 @@ function _App(props: AppProps) {
   const classes = useStyles();
 
   useEffect(() => {
-    props.loginUser("ass", "bass");
+    props.loginUser("admin", "123456Ad");
   }, []);
 
   return (
     <>
       <CssBaseline />
 
-      <Backdrop className={classes.backdrop} open={true}>
+      <Backdrop className={classes.backdrop} open={isLoading}>
         <CircularProgress color="inherit" />
       </Backdrop>
 
