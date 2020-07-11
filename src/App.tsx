@@ -7,6 +7,7 @@ import { Navbar } from "./components/Navbar";
 import { CssBaseline } from "@material-ui/core";
 import { ErrorBar } from "./components/ErrorBar";
 import { Loading } from "./components/Loading";
+import { LoginPage } from "./components/LoginPage";
 
 interface AppProps {
   handleReturningUser(): void;
@@ -22,10 +23,10 @@ function _App(props: AppProps) {
   return (
     <>
       <CssBaseline />
-      <Loading />
       <Navbar />
-
+      <LoginPage />
       <ErrorBar />
+      <Loading />
     </>
   );
 }
