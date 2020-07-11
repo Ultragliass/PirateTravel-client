@@ -13,6 +13,8 @@ import { IState } from "./models/state";
 import { PublicRoute } from "./components/PublicRoute/PublicRoute";
 import { RegisterPage } from "./components/RegisterPage";
 import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
+import { TransitionGroup } from "react-transition-group";
+import BaseTransition from "./components/BaseTransition/BaseTransition";
 
 interface AppProps {
   handleReturningUser(): void;
@@ -32,19 +34,25 @@ function _App(props: AppProps) {
       <Navbar />
 
       <Switch>
-        <PrivateRoute isLoggedIn={isLoggedIn} path="/vacations">
-          <div>nigger</div>
-        </PrivateRoute>
+        <TransitionGroup>
+          <PrivateRoute isLoggedIn={isLoggedIn} exact path="/vacations">
+            <BaseTransition></BaseTransition>
+          </PrivateRoute>
 
-        <PublicRoute isLoggedIn={isLoggedIn} path="/register">
-          <RegisterPage />
-        </PublicRoute>
+          <PublicRoute isLoggedIn={isLoggedIn} eaxct path="/register">
+            <BaseTransition>
+              <RegisterPage />
+            </BaseTransition>
+          </PublicRoute>
 
-        <PublicRoute isLoggedIn={isLoggedIn} path="/">
-          <LoginPage />
-        </PublicRoute>
+          <PublicRoute isLoggedIn={isLoggedIn} exact path="/">
+            <BaseTransition>
+              <LoginPage />
+            </BaseTransition>
+          </PublicRoute>
 
-        <Redirect to="/" />
+          <Redirect to="/" />
+        </TransitionGroup>
       </Switch>
 
       <ErrorBar />
