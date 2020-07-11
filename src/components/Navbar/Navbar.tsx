@@ -54,13 +54,15 @@ export function _Navbar(props: NavbarProps) {
                   />
                 </div>
 
-                <IconButton
-                  edge="end"
-                  className={classes.button}
-                  onClick={handleUserLogout}
-                >
-                  <MeetingRoom />
-                </IconButton>
+                <Link to="/">
+                  <IconButton
+                    edge="end"
+                    className={classes.button}
+                    onClick={handleUserLogout}
+                  >
+                    <MeetingRoom />
+                  </IconButton>
+                </Link>
               </>
             ) : (
               <>

@@ -8,13 +8,17 @@ import { CssBaseline } from "@material-ui/core";
 import { ErrorBar } from "./components/ErrorBar";
 import { Loading } from "./components/Loading";
 import { LoginPage } from "./components/LoginPage";
+import { Switch, Redirect } from "react-router-dom";
+import { IState } from "./models/state";
+import { PublicRoute } from "./components/PublicRoute/PublicRoute";
 
 interface AppProps {
   handleReturningUser(): void;
+  isLoggedIn: boolean;
 }
 
 function _App(props: AppProps) {
-  const { handleReturningUser } = props;
+  const { handleReturningUser, isLoggedIn } = props;
 
   useEffect(() => {
     handleReturningUser();
@@ -24,17 +28,35 @@ function _App(props: AppProps) {
     <>
       <CssBaseline />
       <Navbar />
-      <LoginPage />
+
+      <Switch>
+        <PublicRoute isLoggedIn={isLoggedIn} exact path="/register">
+
+        </PublicRoute>
+
+        <PublicRoute isLoggedIn={isLoggedIn} exact path="/">
+          <LoginPage />
+        </PublicRoute>
+
+        <Redirect to="/" />
+      </Switch>
+
       <ErrorBar />
       <Loading />
     </>
   );
 }
 
+const mapStateToProps = (state: IState) => {
+  return {
+    isLoggedIn: state.isLoggedIn,
+  };
+};
+
 const mapDispatchToProps = {
   handleReturningUser: handleReturningUserAction,
 };
 
-const App = connect(null, mapDispatchToProps)(_App);
+const App = connect(mapStateToProps, mapDispatchToProps)(_App);
 
 export default App;
