@@ -1,14 +1,7 @@
 import { handleReturningUserAction } from "./actions/userActions";
-import "fontsource-roboto";
-import "./App.css";
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
 import { Navbar } from "./components/Navbar";
-import { CssBaseline } from "@material-ui/core";
-import { ErrorBar } from "./components/ErrorBar";
 import { Loading } from "./components/Loading";
 import { LoginPage } from "./components/LoginPage";
-import { Switch, Redirect } from "react-router-dom";
 import { IState } from "./models/state";
 import { PublicRoute } from "./components/PublicRoute/PublicRoute";
 import { RegisterPage } from "./components/RegisterPage";
@@ -17,12 +10,20 @@ import { TransitionGroup } from "react-transition-group";
 import BaseTransition from "./components/BaseTransition/BaseTransition";
 import { VacationPage } from "./components/VacationsPage";
 import { connectSocketIoAction } from "./actions/vacationActions";
+import "fontsource-roboto";
+import "./App.css";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { CssBaseline } from "@material-ui/core";
+import { ErrorBar } from "./components/ErrorBar";
+import { Switch, Redirect } from "react-router-dom";
+import { Socket } from "socket.io-client";
 
 interface AppProps {
   handleReturningUser(): void;
   isLoggedIn: boolean;
   connectSocketIo(): void;
-  socket: null | SocketIOClientStatic;
+  socket: null | typeof Socket;
 }
 
 function _App(props: AppProps) {

@@ -1,5 +1,6 @@
 import { IVacation } from "./vacation";
 import { IUser } from "./user";
+import { Socket } from "socket.io-client";
 
 export interface IState {
   userData: null | IUser;
@@ -8,5 +9,5 @@ export interface IState {
   error: null | string;
   isLoggedIn: boolean;
   isLoading: boolean;
-  socket: null | SocketIOClientStatic;
+  socket: null | typeof Socket;
 }

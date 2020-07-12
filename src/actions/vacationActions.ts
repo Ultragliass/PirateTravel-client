@@ -6,6 +6,7 @@ import { Actions } from "../redux/reducer";
 import { logoutUserAction as logoutUser } from "./userActions";
 import { startLoading, displayError } from "./utility";
 import axios from "axios";
+import { getSocketActions } from "./socket";
 
 const SOCKET_ENDPOINT = "http://localhost:3001";
 const BASE_LINK = "http://localhost:3001/vacations/";
@@ -26,6 +27,8 @@ export const connectSocketIoAction = () => {
               socket,
             },
           });
+
+          getSocketActions();
         })
         .on("unauthorized", (msg: string) => {
           logoutUser();
