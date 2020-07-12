@@ -8,4 +8,5 @@ export interface IState {
   error: null | string;
   isLoggedIn: boolean;
   isLoading: boolean;
+  socket: null | SocketIOClientStatic;
 }

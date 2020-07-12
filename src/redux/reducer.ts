@@ -8,11 +8,13 @@ const initState: IState = {
   error: null,
   isLoggedIn: false,
   isLoading: false,
+  socket: null,
 };
 
 export enum Actions {
   loginUser = "LOGIN_USER",
   logoutUser = "LOGOUT_USER",
+  getSocket = "GET_SOCKET",
   getVacations = "GET_VACATIONS",
   toggleFollow = "TOGGLE_FOLLOW",
   loadingStart = "LOADING_START",
@@ -38,13 +40,23 @@ export const reducer = (state: IState = initState, action: IAction): IState => {
       return initState;
     }
 
+    case Actions.getSocket: {
+      const { socket } = action.payload;
+
+      return {
+        ...state,
+        socket,
+        isLoading: false,
+        error: null,
+      };
+    }
+
     case Actions.getVacations: {
       const { vacations } = action.payload;
 
       return {
         ...state,
         vacations,
-        isLoading: false,
         error: null,
       };
     }

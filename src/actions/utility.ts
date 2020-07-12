@@ -64,3 +64,14 @@ export function validateInputs(
 
   return isValid;
 }
+
+export const dismissErrorAction = () => {
+  return (dispatch: Dispatch<IAction>): void => {
+    dispatch({
+      type: Actions.displayError,
+      payload: {
+        error: null,
+      },
+    });
+  };
+};

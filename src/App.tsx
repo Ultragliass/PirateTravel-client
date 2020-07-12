@@ -15,6 +15,7 @@ import { RegisterPage } from "./components/RegisterPage";
 import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 import { TransitionGroup } from "react-transition-group";
 import BaseTransition from "./components/BaseTransition/BaseTransition";
+import { VacationPage } from "./components/VacationsPage";
 
 interface AppProps {
   handleReturningUser(): void;
@@ -26,7 +27,7 @@ function _App(props: AppProps) {
 
   useEffect(() => {
     handleReturningUser();
-  }, []);
+  }, []); // An empty array as the second argument for the useEffect hook turns it into componentDidMount.
 
   return (
     <>
@@ -36,7 +37,7 @@ function _App(props: AppProps) {
       <Switch>
         <TransitionGroup>
           <PrivateRoute isLoggedIn={isLoggedIn} exact path="/vacations">
-            <BaseTransition></BaseTransition>
+            <VacationPage />
           </PrivateRoute>
 
           <PublicRoute isLoggedIn={isLoggedIn} eaxct path="/register">
