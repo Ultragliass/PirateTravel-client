@@ -10,6 +10,7 @@ const mapStateToProps = (state: IState) => {
   return {
     vacations: state.vacations,
     socket: state.socket,
+    userData: state.userData,
   };
 };
 
