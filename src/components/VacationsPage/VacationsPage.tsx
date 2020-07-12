@@ -1,17 +1,9 @@
 import React, { useEffect } from "react";
 import { IVacation } from "../../models/vacation";
 import { useVacationPageStyles } from "./styles";
-import {
-  Container,
-  Typography,
-  Grid,
-  Button,
-  Card,
-  CardMedia,
-  CardContent,
-  CardActions,
-} from "@material-ui/core";
+import { Container, Typography, Grid } from "@material-ui/core";
 import { IUser } from "../../models/user";
+import { Vacation } from "../Vacation";
 
 interface VacationsPageProps {
   connectSocketIo(): void;
@@ -56,6 +48,14 @@ export function _VacationsPage(props: VacationsPageProps) {
           </Typography>
         </Container>
       </div>
+
+      <Container className={classes.grid} maxWidth="lg">
+        <Grid container spacing={7}>
+          {vacations.map((vacation) => (
+            <Vacation key={vacation.id} {...vacation }/>
+          ))}
+        </Grid>
+      </Container>
     </>
   );
 }

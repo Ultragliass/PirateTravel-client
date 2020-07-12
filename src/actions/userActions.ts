@@ -61,9 +61,6 @@ export const loginUserAction = (username: string, password: string) => {
       const response = await axios({
         method: "POST",
         url: `${BASE_LINK}login`,
-        headers: {
-          "Content-Type": "application/json",
-        },
         data: {
           username,
           password,
@@ -101,9 +98,6 @@ export const registerUserAction = (user: IRegister) => {
       const response = await axios({
         method: "POST",
         url: `${BASE_LINK}register`,
-        headers: {
-          "Content-Type": "application/json",
-        },
         data: {
           ...user,
         },

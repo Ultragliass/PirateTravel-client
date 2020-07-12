@@ -37,7 +37,9 @@ function _App(props: AppProps) {
       <Switch>
         <TransitionGroup>
           <PrivateRoute isLoggedIn={isLoggedIn} exact path="/vacations">
-            <VacationPage />
+            <BaseTransition>
+              <VacationPage />
+            </BaseTransition>
           </PrivateRoute>
 
           <PublicRoute isLoggedIn={isLoggedIn} eaxct path="/register">

@@ -1,5 +1,6 @@
 import { IState } from "../models/state";
 import { IAction } from "../models/action";
+import { IVacation } from "../models/vacation";
 
 const initState: IState = {
   userData: null,
@@ -54,6 +55,8 @@ export const reducer = (state: IState = initState, action: IAction): IState => {
     case Actions.getVacations: {
       const { vacations } = action.payload;
 
+      vacations.sort(sortArray);
+
       return {
         ...state,
         vacations,
@@ -62,7 +65,7 @@ export const reducer = (state: IState = initState, action: IAction): IState => {
     }
 
     case Actions.toggleFollow: {
-      const { id, isFollowing } = action.payload;
+      const { id } = action.payload;
 
       const modifiedVacations = state.vacations.slice();
 
@@ -70,11 +73,13 @@ export const reducer = (state: IState = initState, action: IAction): IState => {
         (vacation) => vacation.id === id
       );
 
-      if (isFollowing) {
+      if (modifiedVacations[index].isFollowing) {
         modifiedVacations[index].isFollowing = 0;
       } else {
         modifiedVacations[index].isFollowing = 1;
       }
+
+      modifiedVacations.sort(sortArray);
 
       return {
         ...state,
@@ -106,3 +111,7 @@ export const reducer = (state: IState = initState, action: IAction): IState => {
     }
   }
 };
+
+function sortArray(x: IVacation, y: IVacation) {
+  return x.isFollowing === y.isFollowing ? 0 : x.isFollowing ? -1 : 1;
+}
