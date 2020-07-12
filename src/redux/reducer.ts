@@ -67,20 +67,18 @@ export const reducer = (state: IState = initState, action: IAction): IState => {
     case Actions.toggleFollow: {
       const { id, isFollowing } = action.payload;
 
-      console.log({ id, isFollowing });
-
       const modifiedVacations = state.vacations.slice();
 
       const index = modifiedVacations.findIndex(
         (vacation) => vacation.id === id
       );
 
-      if (isFollowing) {
-        modifiedVacations[index].isFollowing = 0;
-        modifiedVacations[index].followers -= 1;
+      console.log(index, modifiedVacations);
+
+      if (state.isAdmin) {
+        modifiedVacations[index].followers += isFollowing ? -1 : 1;
       } else {
-        modifiedVacations[index].isFollowing = 1;
-        modifiedVacations[index].followers += 1;
+        modifiedVacations[index].isFollowing = isFollowing ? 0 : 1;
       }
 
       modifiedVacations.sort(sortArray);

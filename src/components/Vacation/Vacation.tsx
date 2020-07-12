@@ -11,7 +11,8 @@ import {
   Grow,
 } from "@material-ui/core";
 import { useVacationStyles } from "./styles";
-import { Favorite, FavoriteBorder } from "@material-ui/icons";
+import { Favorite, FavoriteBorder, Clear, Edit } from "@material-ui/icons";
+import { ConfirmModal } from "../ConfirmModal/ConfirmModal";
 
 interface VacationProps extends IVacation {
   toggleFollow(id: number, isFollowing: number): void;
@@ -35,6 +36,8 @@ export function _Vacation(props: VacationProps) {
 
   const [fade, setFade] = useState(true);
 
+  const [open, setOpen] = useState(false);
+
   const formatDate = (rawDate: any) => {
     const date = new Date(rawDate);
 
@@ -51,43 +54,73 @@ export function _Vacation(props: VacationProps) {
     }, 500);
   };
 
+  const openModal = () => {
+    setOpen(true);
+  };
+
+  const closeModal = () => {
+    setOpen(false);
+  };
+
+  const handleDeleteVacation = () => {
+    setOpen(false);
+    console.log("Vacation deleted");
+  };
+
   return (
-    <Grow in={fade} timeout={300}>
-      <Grid item xs={12} sm={6} md={4}>
-        <Card className={classes.card}>
-          <CardMedia
-            className={classes.cardMedia}
-            image={image}
-            title={destination}
-          />
-          <CardContent className={classes.cardContent}>
-            <Typography
-              gutterBottom
-              align="center"
-              variant="h4"
-              className={classes.text}
-            >
-              {destination}
-            </Typography>
-            <Typography
-              gutterBottom
-              align="center"
-              variant="h6"
-              className={classes.text}
-            >
-              {`${formatDate(startDate)} - ${formatDate(endDate)}`}
-            </Typography>
-            <Typography className={classes.text}>{description}</Typography>
-          </CardContent>
-          <CardActions>
-            {isAdmin ? null : (
-              <IconButton onClick={handleToggleFollow}>
-                {isFollowing ? <Favorite /> : <FavoriteBorder />}
-              </IconButton>
-            )}
-          </CardActions>
-        </Card>
-      </Grid>
-    </Grow>
+    <>
+      <ConfirmModal
+        open={open}
+        handleClose={closeModal}
+        deleteVacation={handleDeleteVacation}
+      />
+
+      <Grow in={fade} timeout={300}>
+        <Grid item xs={12} sm={6} md={4}>
+          <Card className={classes.card}>
+            <CardMedia
+              className={classes.cardMedia}
+              image={image}
+              title={destination}
+            />
+            <CardContent className={classes.cardContent}>
+              <Typography
+                gutterBottom
+                align="center"
+                variant="h4"
+                className={classes.text}
+              >
+                {destination}
+              </Typography>
+              <Typography
+                gutterBottom
+                align="center"
+                variant="h6"
+                className={classes.text}
+              >
+                {`${formatDate(startDate)} - ${formatDate(endDate)}`}
+              </Typography>
+              <Typography className={classes.text}>{description}</Typography>
+            </CardContent>
+            <CardActions>
+              {isAdmin ? (
+                <>
+                  <IconButton onClick={openModal}>
+                    <Clear />
+                  </IconButton>
+                  <IconButton>
+                    <Edit />
+                  </IconButton>
+                </>
+              ) : (
+                <IconButton onClick={handleToggleFollow}>
+                  {isFollowing ? <Favorite /> : <FavoriteBorder />}
+                </IconButton>
+              )}
+            </CardActions>
+          </Card>
+        </Grid>
+      </Grow>
+    </>
   );
 }
