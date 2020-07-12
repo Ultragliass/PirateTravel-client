@@ -16,18 +16,25 @@ import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 import { TransitionGroup } from "react-transition-group";
 import BaseTransition from "./components/BaseTransition/BaseTransition";
 import { VacationPage } from "./components/VacationsPage";
+import { connectSocketIoAction } from "./actions/vacationActions";
 
 interface AppProps {
   handleReturningUser(): void;
   isLoggedIn: boolean;
+  connectSocketIo(): void;
+  socket: null | SocketIOClientStatic;
 }
 
 function _App(props: AppProps) {
-  const { handleReturningUser, isLoggedIn } = props;
+  const { handleReturningUser, isLoggedIn, connectSocketIo, socket } = props;
 
   useEffect(() => {
     handleReturningUser();
   }, []); // An empty array as the second argument for the useEffect hook turns it into componentDidMount.
+
+  if (!socket && isLoggedIn) {
+    connectSocketIo();
+  }
 
   return (
     <>
@@ -67,11 +74,13 @@ function _App(props: AppProps) {
 const mapStateToProps = (state: IState) => {
   return {
     isLoggedIn: state.isLoggedIn,
+    socket: state.socket,
   };
 };
 
 const mapDispatchToProps = {
   handleReturningUser: handleReturningUserAction,
+  connectSocketIo: connectSocketIoAction,
 };
 
 const App = connect(mapStateToProps, mapDispatchToProps)(_App);

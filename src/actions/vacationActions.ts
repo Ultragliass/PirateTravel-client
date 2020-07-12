@@ -11,10 +11,10 @@ const SOCKET_ENDPOINT = "http://localhost:3001";
 const BASE_LINK = "http://localhost:3001/vacations/";
 
 export const connectSocketIoAction = () => {
-  return async (dispatch: Dispatch<IAction>): Promise<void> => {
+  return (dispatch: Dispatch<IAction>): void => {
     startLoading(dispatch);
 
-    const socket = await io.connect(SOCKET_ENDPOINT);
+    const socket = io.connect(SOCKET_ENDPOINT);
 
     socket.on("connect", () => {
       socket

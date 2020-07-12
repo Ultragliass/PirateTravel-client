@@ -6,25 +6,19 @@ import { IUser } from "../../models/user";
 import { Vacation } from "../Vacation";
 
 interface VacationsPageProps {
-  connectSocketIo(): void;
   getVacations(): void;
   vacations: IVacation[];
-  socket: null | SocketIOClientStatic;
   userData: null | IUser;
 }
 
 export function _VacationsPage(props: VacationsPageProps) {
-  const { connectSocketIo, getVacations, vacations, socket, userData } = props;
+  const { getVacations, vacations, userData } = props;
 
   const classes = useVacationPageStyles();
 
   useEffect(() => {
     if (!vacations.length) {
       getVacations();
-    }
-
-    if (!socket) {
-      connectSocketIo();
     }
   }, []);
 

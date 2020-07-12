@@ -36,8 +36,8 @@ export function _Vacation(props: VacationProps) {
     return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
   };
 
-  const handleToggleFollow = () => {
-    toggleFollow(id);
+  const handleToggleFollow = async () => {
+    await toggleFollow(id);
   };
 
   return (
@@ -57,10 +57,10 @@ export function _Vacation(props: VacationProps) {
           >
             {destination}
           </Typography>
-          <Typography className={classes.text}>{description}</Typography>
           <Typography gutterBottom align="center" variant="h6">
             {`${formatDate(startDate)} - ${formatDate(endDate)}`}
           </Typography>
+          <Typography className={classes.text}>{description}</Typography>
         </CardContent>
         <CardActions>
           <IconButton onClick={handleToggleFollow}>
