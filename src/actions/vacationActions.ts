@@ -63,7 +63,7 @@ export const getVacationsAction = () => {
   };
 };
 
-export const toggleFollowAction = (id: number) => {
+export const toggleFollowAction = (id: number, isFollowing: number) => {
   return async (dispatch: Dispatch<IAction>): Promise<void> => {
     startLoading(dispatch);
 
@@ -80,6 +80,7 @@ export const toggleFollowAction = (id: number) => {
         type: Actions.toggleFollow,
         payload: {
           id,
+          isFollowing
         },
       });
     } catch (error) {

@@ -14,7 +14,7 @@ import { useVacationStyles } from "./styles";
 import { Favorite, FavoriteBorder } from "@material-ui/icons";
 
 interface VacationProps extends IVacation {
-  toggleFollow(id: number): void;
+  toggleFollow(id: number, isFollowing: number): void;
   isAdmin: boolean;
 }
 
@@ -45,7 +45,7 @@ export function _Vacation(props: VacationProps) {
     setFade(false);
 
     setTimeout(async () => {
-      await toggleFollow(id);
+      await toggleFollow(id, isFollowing);
 
       setFade(true);
     }, 500);

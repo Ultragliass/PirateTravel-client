@@ -13,6 +13,10 @@ export function getState() {
   return store.getState();
 }
 
+export function getDispatch() {
+  return store.dispatch;
+}
+
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>

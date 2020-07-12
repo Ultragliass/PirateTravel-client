@@ -65,7 +65,9 @@ export const reducer = (state: IState = initState, action: IAction): IState => {
     }
 
     case Actions.toggleFollow: {
-      const { id } = action.payload;
+      const { id, isFollowing } = action.payload;
+
+      console.log({ id, isFollowing });
 
       const modifiedVacations = state.vacations.slice();
 
@@ -73,10 +75,12 @@ export const reducer = (state: IState = initState, action: IAction): IState => {
         (vacation) => vacation.id === id
       );
 
-      if (modifiedVacations[index].isFollowing) {
+      if (isFollowing) {
         modifiedVacations[index].isFollowing = 0;
+        modifiedVacations[index].followers -= 1;
       } else {
         modifiedVacations[index].isFollowing = 1;
+        modifiedVacations[index].followers += 1;
       }
 
       modifiedVacations.sort(sortArray);
