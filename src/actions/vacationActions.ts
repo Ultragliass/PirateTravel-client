@@ -30,7 +30,7 @@ export const connectSocketIoAction = () => {
 
           getSocketActions();
         })
-        .on("unauthorized", (msg: string) => {
+        .on("unauthorized", () => {
           logoutUser();
         });
     });
@@ -80,7 +80,32 @@ export const toggleFollowAction = (id: number, isFollowing: number) => {
         type: Actions.toggleFollow,
         payload: {
           id,
-          isFollowing
+          isFollowing,
+        },
+      });
+    } catch (error) {
+      displayError(dispatch, error);
+    }
+  };
+};
+
+export const deleteVacationAction = (id: Number) => {
+  return async (dispatch: Dispatch<IAction>): Promise<void> => {
+    startLoading(dispatch);
+
+    try {
+      await axios({
+        method: "DELETE",
+        url: `${BASE_LINK}${id}`,
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+      });
+
+      dispatch({
+        type: Actions.deleteVacation,
+        payload: {
+          id,
         },
       });
     } catch (error) {

@@ -7,12 +7,20 @@ export function getSocketActions() {
   const dispatch = getDispatch();
 
   socket?.on("toggle_follow", ({ id, isFollowing }: any) => {
-
     dispatch({
       type: Actions.toggleFollow,
       payload: {
         id: Number(id),
         isFollowing,
+      },
+    });
+  });
+
+  socket?.on("delete_vacation", ({ id }: any) => {
+    dispatch({
+      type: Actions.deleteVacation,
+      payload: {
+        id: Number(id),
       },
     });
   });

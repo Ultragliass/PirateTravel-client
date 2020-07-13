@@ -17,18 +17,17 @@ interface ConfirmModalProps {
 export function ConfirmModal(props: ConfirmModalProps) {
   const { open, handleClose, deleteVacation } = props;
 
-  const theme = useTheme();
-  const fullscreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const fullscreen = useMediaQuery(useTheme().breakpoints.down("sm"));
 
   return (
     <>
       <Dialog fullScreen={fullscreen} open={open} onClose={handleClose}>
         <DialogTitle>Delete vacation?</DialogTitle>
-        <DialogActions>
+        <DialogActions style={{ justifyContent: "center" }}>
           <Button autoFocus onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={deleteVacation} color="primary" autoFocus>
+          <Button onClick={deleteVacation} color="primary">
             Confirm
           </Button>
         </DialogActions>

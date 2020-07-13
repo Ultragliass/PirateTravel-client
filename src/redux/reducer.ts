@@ -18,6 +18,7 @@ export enum Actions {
   getSocket = "GET_SOCKET",
   getVacations = "GET_VACATIONS",
   toggleFollow = "TOGGLE_FOLLOW",
+  deleteVacation = "DELETE_VACATION",
   loadingStart = "LOADING_START",
   displayError = "DISPLAY_ERROR",
 }
@@ -38,6 +39,8 @@ export const reducer = (state: IState = initState, action: IAction): IState => {
     }
 
     case Actions.logoutUser: {
+      state.socket?.close();
+
       return initState;
     }
 
@@ -73,8 +76,6 @@ export const reducer = (state: IState = initState, action: IAction): IState => {
         (vacation) => vacation.id === id
       );
 
-      console.log(index, modifiedVacations);
-
       if (state.isAdmin) {
         modifiedVacations[index].followers += isFollowing ? -1 : 1;
       } else {
@@ -82,6 +83,25 @@ export const reducer = (state: IState = initState, action: IAction): IState => {
       }
 
       modifiedVacations.sort(sortArray);
+
+      return {
+        ...state,
+        vacations: modifiedVacations,
+        isLoading: false,
+        error: null,
+      };
+    }
+
+    case Actions.deleteVacation: {
+      const { id } = action.payload;
+
+      const modifiedVacations = state.vacations.slice();
+
+      const index = modifiedVacations.findIndex(
+        (vacation) => vacation.id === id
+      );
+
+      modifiedVacations.splice(index, 1);
 
       return {
         ...state,

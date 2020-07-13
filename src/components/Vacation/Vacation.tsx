@@ -16,6 +16,7 @@ import { ConfirmModal } from "../ConfirmModal/ConfirmModal";
 
 interface VacationProps extends IVacation {
   toggleFollow(id: number, isFollowing: number): void;
+  deleteVacation(id: number): void;
   isAdmin: boolean;
 }
 
@@ -29,6 +30,7 @@ export function _Vacation(props: VacationProps) {
     startDate,
     endDate,
     toggleFollow,
+    deleteVacation,
     isAdmin,
   } = props;
 
@@ -64,7 +66,7 @@ export function _Vacation(props: VacationProps) {
 
   const handleDeleteVacation = () => {
     setOpen(false);
-    console.log("Vacation deleted");
+    deleteVacation(id);
   };
 
   return (
