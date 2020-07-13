@@ -13,6 +13,7 @@ import {
 import { useVacationStyles } from "./styles";
 import { Favorite, FavoriteBorder, Clear, Edit } from "@material-ui/icons";
 import { ConfirmModal } from "../ConfirmModal/ConfirmModal";
+import { Link } from "react-router-dom";
 
 interface VacationProps extends IVacation {
   toggleFollow(id: number, isFollowing: number): void;
@@ -29,6 +30,7 @@ export function _Vacation(props: VacationProps) {
     isFollowing,
     startDate,
     endDate,
+    price,
     toggleFollow,
     deleteVacation,
     isAdmin,
@@ -74,7 +76,8 @@ export function _Vacation(props: VacationProps) {
       <ConfirmModal
         open={open}
         handleClose={closeModal}
-        deleteVacation={handleDeleteVacation}
+        handleConfirm={handleDeleteVacation}
+        title="Delete vacation?"
       />
 
       <Grow in={fade} timeout={300}>
@@ -94,6 +97,16 @@ export function _Vacation(props: VacationProps) {
               >
                 {destination}
               </Typography>
+
+              <Typography
+                gutterBottom
+                align="center"
+                variant="h6"
+                className={classes.text}
+              >
+                For the humble price of: ${price}
+              </Typography>
+
               <Typography
                 gutterBottom
                 align="center"
@@ -110,9 +123,11 @@ export function _Vacation(props: VacationProps) {
                   <IconButton onClick={openModal}>
                     <Clear />
                   </IconButton>
-                  <IconButton>
-                    <Edit />
-                  </IconButton>
+                  <Link to={`/edit/${id}`}>
+                    <IconButton>
+                      <Edit />
+                    </IconButton>
+                  </Link>
                 </>
               ) : (
                 <IconButton onClick={handleToggleFollow}>

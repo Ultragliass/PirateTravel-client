@@ -24,4 +24,13 @@ export function getSocketActions() {
       },
     });
   });
+
+  socket?.on("update_vacation", ({ vacation }: any) => {
+    dispatch({
+      type: Actions.editVacation,
+      payload: {
+        vacation,
+      },
+    });
+  });
 }

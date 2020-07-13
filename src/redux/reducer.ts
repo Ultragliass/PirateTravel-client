@@ -19,6 +19,7 @@ export enum Actions {
   getVacations = "GET_VACATIONS",
   toggleFollow = "TOGGLE_FOLLOW",
   deleteVacation = "DELETE_VACATION",
+  editVacation = "EDIT_VACATION",
   loadingStart = "LOADING_START",
   displayError = "DISPLAY_ERROR",
 }
@@ -102,6 +103,24 @@ export const reducer = (state: IState = initState, action: IAction): IState => {
       );
 
       modifiedVacations.splice(index, 1);
+
+      return {
+        ...state,
+        vacations: modifiedVacations,
+        isLoading: false,
+        error: null,
+      };
+    }
+
+    case Actions.editVacation: {
+      const { vacation } = action.payload;
+
+      const modifiedVacations = state.vacations.slice();
+
+      const index = modifiedVacations.findIndex((v) => v.id === vacation.id);
+
+      modifiedVacations[index] = vacation;
+      modifiedVacations[index].isFollowing = state.vacations[index].isFollowing;
 
       return {
         ...state,

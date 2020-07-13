@@ -12,70 +12,95 @@ import { VacationPage } from "./components/VacationsPage";
 import { connectSocketIoAction } from "./actions/vacationActions";
 import "fontsource-roboto";
 import "./App.css";
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { CssBaseline } from "@material-ui/core";
 import { ErrorBar } from "./components/ErrorBar";
 import { Switch, Redirect } from "react-router-dom";
 import { Socket } from "socket.io-client";
+import { AdminRoute } from "./components/AdminRoute/AdminRoute";
+import { EditPage } from "./components/EditPage";
 
 interface AppProps {
   handleReturningUser(): void;
-  isLoggedIn: boolean;
   connectSocketIo(): void;
+  isLoggedIn: boolean;
   socket: null | typeof Socket;
+  isAdmin: boolean;
 }
 
-function _App(props: AppProps) {
-  const { handleReturningUser, isLoggedIn, connectSocketIo, socket } = props;
+class _App extends React.PureComponent<AppProps> {
+  render() {
+    const { isLoggedIn, isAdmin } = this.props;
 
-  useEffect(() => {
-    handleReturningUser();
-  }, []); // An empty array as the second argument for the useEffect hook turns it into componentDidMount.
+    this.handleSocketConnect();
 
-  if (!socket && isLoggedIn) {
-    connectSocketIo();
+    return (
+      <>
+        <CssBaseline />
+        <Navbar />
+
+        <Switch>
+          <TransitionGroup>
+            <AdminRoute
+              isLoggedIn={isLoggedIn}
+              isAdmin={isAdmin}
+              exact
+              path="/edit/:id"
+            >
+              <BaseTransition>
+                <EditPage />
+              </BaseTransition>
+            </AdminRoute>
+
+            <PrivateRoute isLoggedIn={isLoggedIn} exact path="/vacations">
+              <BaseTransition>
+                <VacationPage />
+              </BaseTransition>
+            </PrivateRoute>
+
+            <PublicRoute isLoggedIn={isLoggedIn} eaxct path="/register">
+              <BaseTransition>
+                <RegisterPage />
+              </BaseTransition>
+            </PublicRoute>
+
+            <PublicRoute isLoggedIn={isLoggedIn} exact path="/">
+              <BaseTransition>
+                <LoginPage />
+              </BaseTransition>
+            </PublicRoute>
+
+            <Redirect to="/" />
+          </TransitionGroup>
+        </Switch>
+
+        <ErrorBar />
+        <Loading />
+      </>
+    );
   }
 
-  return (
-    <>
-      <CssBaseline />
-      <Navbar />
+  componentDidMount = async () => {
+    const { handleReturningUser } = this.props;
 
-      <Switch>
-        <TransitionGroup>
-          <PrivateRoute isLoggedIn={isLoggedIn} exact path="/vacations">
-            <BaseTransition>
-              <VacationPage />
-            </BaseTransition>
-          </PrivateRoute>
+    await handleReturningUser();
+  };
 
-          <PublicRoute isLoggedIn={isLoggedIn} eaxct path="/register">
-            <BaseTransition>
-              <RegisterPage />
-            </BaseTransition>
-          </PublicRoute>
+  handleSocketConnect = async () => {
+    const { connectSocketIo, socket, isLoggedIn } = this.props;
 
-          <PublicRoute isLoggedIn={isLoggedIn} exact path="/">
-            <BaseTransition>
-              <LoginPage />
-            </BaseTransition>
-          </PublicRoute>
-
-          <Redirect to="/" />
-        </TransitionGroup>
-      </Switch>
-
-      <ErrorBar />
-      <Loading />
-    </>
-  );
+    if (!socket && isLoggedIn) {
+      connectSocketIo();
+    }
+  };
 }
 
 const mapStateToProps = (state: IState) => {
   return {
     isLoggedIn: state.isLoggedIn,
     socket: state.socket,
+    isAdmin: state.isAdmin,
   };
 };
 

@@ -7,6 +7,7 @@ import { logoutUserAction as logoutUser } from "./userActions";
 import { startLoading, displayError } from "./utility";
 import axios from "axios";
 import { getSocketActions } from "./socket";
+import { IVacation } from "../models/vacation";
 
 const SOCKET_ENDPOINT = "http://localhost:3001";
 const BASE_LINK = "http://localhost:3001/vacations/";
@@ -107,6 +108,30 @@ export const deleteVacationAction = (id: Number) => {
         payload: {
           id,
         },
+      });
+    } catch (error) {
+      displayError(dispatch, error);
+    }
+  };
+};
+
+export const editVacationAction = (vacation: IVacation, id: number) => {
+  return async (dispatch: Dispatch<IAction>): Promise<void> => {
+    startLoading(dispatch);
+
+    try {
+      await axios({
+        method: "PUT",
+        url: `${BASE_LINK}${id}/edit`,
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+        data: { ...vacation },
+      });
+
+      dispatch({
+        type: Actions.editVacation,
+        payload: { vacation: { ...vacation, id } },
       });
     } catch (error) {
       displayError(dispatch, error);

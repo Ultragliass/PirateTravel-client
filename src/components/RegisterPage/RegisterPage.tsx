@@ -77,6 +77,7 @@ export function _RegisterPage(props: RegisterPageProps) {
                 className={classes.input}
                 autoFocus
                 fullWidth
+                required
                 onChange={handleInputChange}
                 value={firstname}
               />
@@ -88,6 +89,7 @@ export function _RegisterPage(props: RegisterPageProps) {
                 label="Lastname"
                 className={classes.input}
                 fullWidth
+                required
                 onChange={handleInputChange}
                 value={lastname}
               />
@@ -99,6 +101,7 @@ export function _RegisterPage(props: RegisterPageProps) {
                 label="Username"
                 className={classes.input}
                 fullWidth
+                required
                 onChange={handleInputChange}
                 value={username}
               />
@@ -111,6 +114,7 @@ export function _RegisterPage(props: RegisterPageProps) {
                 type="password"
                 className={classes.input}
                 fullWidth
+                required
                 onChange={handleInputChange}
                 value={password}
               />
