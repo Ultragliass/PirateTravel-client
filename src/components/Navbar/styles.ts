@@ -41,14 +41,15 @@ export const useNavbarStyles = makeStyles((theme: Theme) =>
       color: "inherit",
     },
     appBar: {
-      backgroundColor: "#ffffff33",
+      backgroundColor: "#fff",
     },
     button: {
       marginLeft: theme.spacing(3),
-      color: "white",
     },
     input: {
-      color: "black",
+      color: "#000",
+      border: "2px solid gray",
+      borderRadius: 5,
       padding: theme.spacing(1, 1, 1, 0),
       paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
       transition: theme.transitions.create("width"),

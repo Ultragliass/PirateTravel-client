@@ -42,8 +42,8 @@ class _App extends React.PureComponent<AppProps> {
         <CssBaseline />
         <Navbar />
 
-        <Switch>
-          <TransitionGroup>
+        <TransitionGroup>
+          <Switch>
             <AdminRoute
               isLoggedIn={isLoggedIn}
               isAdmin={isAdmin}
@@ -96,8 +96,8 @@ class _App extends React.PureComponent<AppProps> {
             </PublicRoute>
 
             <Redirect to="/" />
-          </TransitionGroup>
-        </Switch>
+          </Switch>
+        </TransitionGroup>
 
         <ErrorBar />
         <Loading />
