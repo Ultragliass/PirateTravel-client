@@ -1,3 +1,5 @@
+import { useEditPageStyles } from "./styles";
+import { IVacation } from "../../models/vacation";
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import {
   Typography,
@@ -6,10 +8,8 @@ import {
   Paper,
   IconButton,
 } from "@material-ui/core";
-import { useEditPageStyles } from "./styles";
 import { Link, useParams, Redirect, useHistory } from "react-router-dom";
 import { Check, Clear } from "@material-ui/icons";
-import { IVacation } from "../../models/vacation";
 
 interface EditPageProps {
   vacations: IVacation[];

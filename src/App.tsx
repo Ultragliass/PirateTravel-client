@@ -1,27 +1,27 @@
+import { IState } from "./models/state";
 import { handleReturningUserAction } from "./actions/userActions";
 import { Navbar } from "./components/Navbar";
 import { Loading } from "./components/Loading";
 import { LoginPage } from "./components/LoginPage";
-import { IState } from "./models/state";
 import { PublicRoute } from "./components/PublicRoute/PublicRoute";
 import { RegisterPage } from "./components/RegisterPage";
 import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
-import { TransitionGroup } from "react-transition-group";
 import BaseTransition from "./components/BaseTransition/BaseTransition";
 import { VacationPage } from "./components/VacationsPage";
 import { connectSocketIoAction } from "./actions/vacationActions";
+import { ErrorBar } from "./components/ErrorBar";
+import { AdminRoute } from "./components/AdminRoute/AdminRoute";
+import { EditPage } from "./components/EditPage";
+import { AddPage } from "./components/AddPage";
+import { StatisticsPage } from "./components/StatisticsPage";
+import { TransitionGroup } from "react-transition-group";
 import "fontsource-roboto";
 import "./App.css";
 import React from "react";
 import { connect } from "react-redux";
 import { CssBaseline } from "@material-ui/core";
-import { ErrorBar } from "./components/ErrorBar";
 import { Switch, Redirect } from "react-router-dom";
 import { Socket } from "socket.io-client";
-import { AdminRoute } from "./components/AdminRoute/AdminRoute";
-import { EditPage } from "./components/EditPage";
-import { AddPage } from "./components/AddPage";
-import { StatisticsPage } from "./components/StatisticsPage";
 
 interface AppProps {
   handleReturningUser(): void;

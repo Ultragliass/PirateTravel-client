@@ -1,5 +1,5 @@
-import React, { useState, ChangeEvent, FormEvent } from "react";
 import { useLoginPageStyles } from "./styles";
+import React, { useState, ChangeEvent, FormEvent } from "react";
 import {
   Container,
   Avatar,

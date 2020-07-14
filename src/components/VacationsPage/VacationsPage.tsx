@@ -1,9 +1,9 @@
-import React from "react";
 import { IVacation } from "../../models/vacation";
 import { useVacationPageStyles } from "./styles";
-import { Container, Typography, Grid, IconButton } from "@material-ui/core";
 import { IUser } from "../../models/user";
 import { Vacation } from "../Vacation";
+import React from "react";
+import { Container, Typography, Grid, IconButton } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { AddCircle } from "@material-ui/icons";
 

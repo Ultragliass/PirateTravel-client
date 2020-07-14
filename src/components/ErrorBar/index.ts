@@ -1,7 +1,7 @@
 import { IState } from "../../models/state";
-import { connect } from "react-redux";
 import { _ErrorBar } from "./ErrorBar";
 import { dismissErrorAction } from "../../actions/utility";
+import { connect } from "react-redux";
 
 const mapStateToProps = (state: IState) => {
   return {

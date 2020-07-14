@@ -1,7 +1,7 @@
 import { IState } from "../../models/state";
-import { connect } from "react-redux";
 import { _EditPage } from "./EditPage";
 import { editVacationAction } from "../../actions/vacationActions";
+import { connect } from "react-redux";
 
 const mapStateToProps = (state: IState) => {
   return {

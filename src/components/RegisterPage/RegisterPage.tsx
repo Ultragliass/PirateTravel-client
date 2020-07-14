@@ -1,5 +1,6 @@
-import React, { ChangeEvent, useState, FormEvent } from "react";
+import { IRegister } from "../../models/register";
 import { useRegisterPageStyles } from "./styles";
+import React, { ChangeEvent, useState, FormEvent } from "react";
 import {
   Container,
   Avatar,
@@ -9,7 +10,6 @@ import {
   Button,
 } from "@material-ui/core";
 import { LockOutlined } from "@material-ui/icons";
-import { IRegister } from "../../models/register";
 
 interface RegisterPageProps {
   registerUser(user: IRegister): void;

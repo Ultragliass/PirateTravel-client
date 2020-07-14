@@ -1,7 +1,7 @@
 import { IState } from "../../models/state";
-import { connect } from "react-redux";
 import { _Navbar } from "./Navbar";
 import { logoutUserAction } from "../../actions/userActions";
+import { connect } from "react-redux";
 
 const mapStateToProps = (state: IState) => {
   return {

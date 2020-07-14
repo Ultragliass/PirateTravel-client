@@ -1,13 +1,13 @@
 import { IAction } from "../models/action";
-import { Dispatch } from "react";
-import io from "socket.io-client";
+import { IVacation } from "../models/vacation";
 import { getToken } from "./token";
 import { Actions } from "../redux/reducer";
 import { logoutUserAction as logoutUser } from "./userActions";
 import { startLoading, displayError } from "./utility";
-import axios from "axios";
 import { getSocketActions } from "./socket";
-import { IVacation } from "../models/vacation";
+import { Dispatch } from "react";
+import io from "socket.io-client";
+import axios from "axios";
 
 const SOCKET_ENDPOINT = "http://localhost:3001";
 const BASE_LINK = "http://localhost:3001/vacations/";

@@ -1,3 +1,4 @@
+import { HideOnScroll } from "../HideOnScroll/HideOnScroll";
 import { useNavbarStyles } from "./styles";
 import React from "react";
 import {
@@ -15,7 +16,6 @@ import {
   MeetingRoom,
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
-import { HideOnScroll } from "../HideOnScroll/HideOnScroll";
 
 interface NavbarProps {
   isLoggedIn: boolean;

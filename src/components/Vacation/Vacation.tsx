@@ -1,3 +1,5 @@
+import { useVacationStyles } from "./styles";
+import { ConfirmModal } from "../ConfirmModal/ConfirmModal";
 import { IVacation } from "../../models/vacation";
 import React, { useState } from "react";
 import {
@@ -10,9 +12,7 @@ import {
   IconButton,
   Grow,
 } from "@material-ui/core";
-import { useVacationStyles } from "./styles";
 import { Favorite, FavoriteBorder, Clear, Edit } from "@material-ui/icons";
-import { ConfirmModal } from "../ConfirmModal/ConfirmModal";
 import { Link } from "react-router-dom";
 
 interface VacationProps extends IVacation {

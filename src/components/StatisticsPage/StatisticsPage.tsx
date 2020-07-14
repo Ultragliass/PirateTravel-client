@@ -1,7 +1,7 @@
-import React from "react";
-import { ChartData, HorizontalBar } from "react-chartjs-2";
 import { IVacation } from "../../models/vacation";
 import { useStatisticsPageStyles } from "./styles";
+import React from "react";
+import { ChartData, HorizontalBar } from "react-chartjs-2";
 import { Grid, IconButton } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { ArrowBack } from "@material-ui/icons";

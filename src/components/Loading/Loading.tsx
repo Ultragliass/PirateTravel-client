@@ -1,6 +1,6 @@
+import { useLoadingStyles } from "./styles";
 import React from "react";
 import { Backdrop, CircularProgress } from "@material-ui/core";
-import { useLoadingStyles } from "./styles";
 
 interface LoadingProps {
   isLoading: boolean;

@@ -23,6 +23,6 @@ export const useVacationPageStyles = makeStyles((theme) => ({
   icon: {
     width: 64,
     height: 64,
-    color: "#fff"
+    color: "#fff",
   },
 }));

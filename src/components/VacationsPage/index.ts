@@ -1,7 +1,7 @@
 import { _VacationsPage } from "./VacationsPage";
 import { getVacationsAction } from "../../actions/vacationActions";
-import { connect } from "react-redux";
 import { IState } from "../../models/state";
+import { connect } from "react-redux";
 
 const mapStateToProps = (state: IState) => {
   return {

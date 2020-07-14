@@ -1,8 +1,8 @@
 import { IAction } from "../models/action";
+import { IRegister } from "../models/register";
 import { Actions } from "../redux/reducer";
 import { getToken, clearToken, saveToken } from "./token";
 import { startLoading, displayError, validateInputs } from "./utility";
-import { IRegister } from "../models/register";
 import { Dispatch } from "react";
 import axios from "axios";
 
