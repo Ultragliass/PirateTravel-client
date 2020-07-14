@@ -7,7 +7,7 @@ import {
   IconButton,
 } from "@material-ui/core";
 import { useEditPageStyles } from "./styles";
-import { Link, useParams, Redirect } from "react-router-dom";
+import { Link, useParams, Redirect, useHistory } from "react-router-dom";
 import { Check, Clear } from "@material-ui/icons";
 import { IVacation } from "../../models/vacation";
 
@@ -35,12 +35,18 @@ export function _EditPage(props: EditPageProps) {
     followers,
   } = vacations[index];
 
+  const history = useHistory();
+
   const [newDescription, setNewDescription] = useState(description);
   const [newDestination, setNewDestination] = useState(destination);
   const [newStartDate, setNewStartDate] = useState(startDate);
   const [newEndDate, setNewEndDate] = useState(endDate);
   const [newPrice, setNewPrice] = useState(price);
   const [newImage, setNewImage] = useState(image);
+
+  if (index === -1) {
+    return <Redirect to="/vacations" />;
+  }
 
   const isDisabled =
     description === newDescription &&
@@ -85,6 +91,7 @@ export function _EditPage(props: EditPageProps) {
     }
   };
 
+
   const handleEditVacation = (event: FormEvent) => {
     event.preventDefault();
 
@@ -101,8 +108,8 @@ export function _EditPage(props: EditPageProps) {
       Number(id)
     );
 
-    
-    return <Redirect to="/vacations" />;
+    history.goBack();
+
   };
 
   return (

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { IVacation } from "../../models/vacation";
 import { useVacationPageStyles } from "./styles";
 import { Container, Typography, Grid } from "@material-ui/core";
@@ -16,11 +16,9 @@ export function _VacationsPage(props: VacationsPageProps) {
 
   const classes = useVacationPageStyles();
 
-  useEffect(() => {
-    if (!vacations.length) {
-      getVacations();
-    }
-  }, []);
+  if (!vacations.length) {
+    getVacations();
+  }
 
   return (
     <>
@@ -46,7 +44,7 @@ export function _VacationsPage(props: VacationsPageProps) {
       <Container className={classes.grid} maxWidth="lg">
         <Grid container spacing={7}>
           {vacations.map((vacation) => (
-            <Vacation key={vacation.id} {...vacation }/>
+            <Vacation key={vacation.id} {...vacation} />
           ))}
         </Grid>
       </Container>
