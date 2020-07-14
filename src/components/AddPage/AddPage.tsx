@@ -1,71 +1,44 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
+import { useAddPageStyles } from "./styles";
+import { useHistory, Link } from "react-router-dom";
 import {
+  Paper,
   Typography,
   Grid,
   TextField,
-  Paper,
   IconButton,
 } from "@material-ui/core";
-import { useEditPageStyles } from "./styles";
-import { Link, useParams, Redirect, useHistory } from "react-router-dom";
-import { Check, Clear } from "@material-ui/icons";
-import { IVacation } from "../../models/vacation";
+import { Clear, Check } from "@material-ui/icons";
 
-interface EditPageProps {
-  vacations: IVacation[];
-  editVacation(
-    vacation: {
-      description: string;
-      destination: string;
-      startDate: Date;
-      endDate: Date;
-      price: number | string;
-      image: string;
-      followers: number;
-    },
-    id: number
-  ): Promise<boolean>;
+interface AddPageProps {
+  addVacation(vacation: {
+    description: string;
+    destination: string;
+    startDate: string;
+    endDate: string;
+    price: number | string;
+    image: string;
+    followers: 0;
+    isFollowing: 0;
+  }): Promise<boolean>;
 }
 
-export function _EditPage(props: EditPageProps) {
-  const { vacations, editVacation } = props;
+export function _AddPage(props: AddPageProps) {
+  const { addVacation } = props;
 
-  const { id } = useParams();
-
-  const classes = useEditPageStyles();
-
-  const index = vacations.findIndex((vacation) => vacation.id === Number(id));
-
-  const {
-    description,
-    destination,
-    startDate,
-    endDate,
-    price,
-    image,
-    followers,
-  } = vacations[index];
+  const classes = useAddPageStyles();
 
   const history = useHistory();
 
-  const [newDescription, setNewDescription] = useState(description);
-  const [newDestination, setNewDestination] = useState(destination);
-  const [newStartDate, setNewStartDate] = useState(startDate);
-  const [newEndDate, setNewEndDate] = useState(endDate);
-  const [newPrice, setNewPrice] = useState(price);
-  const [newImage, setNewImage] = useState(image);
-
-  if (index === -1) {
-    return <Redirect to="/vacations" />;
-  }
+  const [description, setDescription] = useState("");
+  const [destination, setDestination] = useState("");
+  const [startDate, setStartDate] = useState("0");
+  const [endDate, setEndDate] = useState("1");
+  const [price, setPrice] = useState("");
+  const [image, setImage] = useState("");
 
   const isDisabled =
-    description === newDescription &&
-    destination === newDestination &&
-    startDate === newStartDate &&
-    endDate === newEndDate &&
-    price === newPrice &&
-    image === newImage;
+    !description || !destination || !startDate || !endDate || !price || !image;
 
   const formatDate = (date: any) =>
     new Date(new Date(date).toString().split("GMT")[0] + " UTC")
@@ -77,46 +50,44 @@ export function _EditPage(props: EditPageProps) {
 
     switch (name) {
       case "description": {
-        return setNewDescription(value);
+        return setDescription(value);
       }
 
       case "destination": {
-        return setNewDestination(value);
+        return setDestination(value);
       }
 
       case "startDate": {
-        return setNewStartDate(value as any);
+        return setStartDate(value as any);
       }
 
       case "endDate": {
-        return setNewEndDate(value as any);
+        return setEndDate(value as any);
       }
 
       case "price": {
-        return setNewPrice(value);
+        return setPrice(value);
       }
 
       case "image": {
-        return setNewImage(value);
+        return setImage(value);
       }
     }
   };
 
-  const handleEditVacation = async (event: FormEvent) => {
+  const handleAddVacation = async (event: FormEvent) => {
     event.preventDefault();
 
-    const success = await editVacation(
-      {
-        description: newDescription,
-        destination: newDestination,
-        startDate: newStartDate,
-        endDate: newEndDate,
-        price: newPrice,
-        image: newImage,
-        followers,
-      },
-      Number(id)
-    );
+    const success = await addVacation({
+      description,
+      destination,
+      startDate,
+      endDate,
+      price,
+      image,
+      followers: 0,
+      isFollowing: 0,
+    });
 
     if (!success) {
       return;
@@ -126,10 +97,10 @@ export function _EditPage(props: EditPageProps) {
   };
 
   return (
-    <form className={classes.layout} onSubmit={handleEditVacation}>
+    <form className={classes.layout} onSubmit={handleAddVacation}>
       <Paper className={classes.paper}>
         <Typography component="h1" variant="h4" align="center">
-          Edit vacation.
+          Add vacation.
         </Typography>
 
         <Grid container spacing={10}>
@@ -141,7 +112,7 @@ export function _EditPage(props: EditPageProps) {
               fullWidth
               required
               onChange={handleInputChange}
-              value={newDestination}
+              value={destination}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -149,11 +120,11 @@ export function _EditPage(props: EditPageProps) {
               name="price"
               label="Price (USD)"
               type="number"
-              inputProps={{ min: 0 }}
+              inputProps={{ min: 0, step: ".01" }}
               fullWidth
               required
               onChange={handleInputChange}
-              value={newPrice}
+              value={price}
             />
           </Grid>
           <Grid item xs={12}>
@@ -165,7 +136,7 @@ export function _EditPage(props: EditPageProps) {
               onChange={handleInputChange}
               inputProps={{ minLength: 30, maxLength: 200 }}
               multiline
-              value={newDescription}
+              value={description}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -177,7 +148,7 @@ export function _EditPage(props: EditPageProps) {
               fullWidth
               required
               onChange={handleInputChange}
-              value={formatDate(newStartDate)}
+              value={formatDate(startDate)}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -189,7 +160,7 @@ export function _EditPage(props: EditPageProps) {
               fullWidth
               required
               onChange={handleInputChange}
-              value={formatDate(newEndDate)}
+              value={formatDate(endDate)}
             />
           </Grid>
           <Grid item xs={12}>
@@ -200,7 +171,7 @@ export function _EditPage(props: EditPageProps) {
               fullWidth
               required
               onChange={handleInputChange}
-              value={newImage}
+              value={image}
             />
           </Grid>
         </Grid>

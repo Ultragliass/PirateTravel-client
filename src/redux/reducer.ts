@@ -17,6 +17,7 @@ export enum Actions {
   logoutUser = "LOGOUT_USER",
   getSocket = "GET_SOCKET",
   getVacations = "GET_VACATIONS",
+  addVacation = "ADD_VACATION",
   toggleFollow = "TOGGLE_FOLLOW",
   deleteVacation = "DELETE_VACATION",
   editVacation = "EDIT_VACATION",
@@ -64,6 +65,21 @@ export const reducer = (state: IState = initState, action: IAction): IState => {
       return {
         ...state,
         vacations,
+        error: null,
+      };
+    }
+
+    case Actions.addVacation: {
+      const { vacation } = action.payload;
+
+      const modifiedVacations = state.vacations.slice();
+
+      modifiedVacations.push(vacation);
+
+      return {
+        ...state,
+        vacations: modifiedVacations,
+        isLoading: false,
         error: null,
       };
     }

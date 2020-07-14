@@ -20,6 +20,7 @@ import { Switch, Redirect } from "react-router-dom";
 import { Socket } from "socket.io-client";
 import { AdminRoute } from "./components/AdminRoute/AdminRoute";
 import { EditPage } from "./components/EditPage";
+import { AddPage } from "./components/AddPage";
 
 interface AppProps {
   handleReturningUser(): void;
@@ -42,6 +43,17 @@ class _App extends React.PureComponent<AppProps> {
 
         <Switch>
           <TransitionGroup>
+            <AdminRoute
+              isLoggedIn={isLoggedIn}
+              isAdmin={isAdmin}
+              exact
+              path="/add"
+            >
+              <BaseTransition>
+                <AddPage />
+              </BaseTransition>
+            </AdminRoute>
+
             <AdminRoute
               isLoggedIn={isLoggedIn}
               isAdmin={isAdmin}

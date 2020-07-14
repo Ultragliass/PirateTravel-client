@@ -64,6 +64,47 @@ export const getVacationsAction = () => {
   };
 };
 
+export const addVacationAction = (vacation: {
+  description: string;
+  destination: string;
+  startDate: string;
+  endDate: string;
+  price: number | string;
+  image: string;
+  followers: 0;
+  isFollowing: 0;
+}) => {
+  return async (dispatch: Dispatch<IAction>): Promise<boolean> => {
+    startLoading(dispatch);
+
+    let success = false;
+
+    try {
+      const response = await axios({
+        method: "POST",
+        url: BASE_LINK,
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+        data: { ...vacation },
+      });
+
+      success = true;
+
+      const { id } = response.data;
+
+      dispatch({
+        type: Actions.addVacation,
+        payload: { vacation: { ...vacation, id } },
+      });
+    } catch (error) {
+      displayError(dispatch, error);
+    } finally {
+      return success;
+    }
+  };
+};
+
 export const toggleFollowAction = (id: number, isFollowing: number) => {
   return async (dispatch: Dispatch<IAction>): Promise<void> => {
     startLoading(dispatch);
@@ -116,8 +157,10 @@ export const deleteVacationAction = (id: Number) => {
 };
 
 export const editVacationAction = (vacation: IVacation, id: number) => {
-  return async (dispatch: Dispatch<IAction>): Promise<void> => {
+  return async (dispatch: Dispatch<IAction>): Promise<boolean> => {
     startLoading(dispatch);
+
+    let success = false;
 
     try {
       await axios({
@@ -129,12 +172,16 @@ export const editVacationAction = (vacation: IVacation, id: number) => {
         data: { ...vacation },
       });
 
+      success = true;
+
       dispatch({
         type: Actions.editVacation,
         payload: { vacation: { ...vacation, id } },
       });
     } catch (error) {
       displayError(dispatch, error);
+    } finally {
+      return success;
     }
   };
 };

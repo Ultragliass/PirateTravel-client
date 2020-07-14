@@ -33,4 +33,13 @@ export function getSocketActions() {
       },
     });
   });
+
+  socket?.on("add_vacation", ({ vacation }: any) => {
+    dispatch({
+      type: Actions.addVacation,
+      payload: {
+        vacation,
+      },
+    });
+  });
 }
