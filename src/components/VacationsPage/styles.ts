@@ -11,4 +11,18 @@ export const useVacationPageStyles = makeStyles((theme) => ({
   text: {
     color: "#fff",
   },
+  buttons: {
+    marginTop: theme.spacing(4),
+    textDecoration: "none",
+  },
+  button: {
+    width: 64,
+    height: 64,
+    padding: 0,
+  },
+  icon: {
+    width: 64,
+    height: 64,
+    color: "#fff"
+  },
 }));
