@@ -11,6 +11,7 @@ import {
   CardActions,
   IconButton,
   Grow,
+  Tooltip,
 } from "@material-ui/core";
 import { Favorite, FavoriteBorder, Clear, Edit } from "@material-ui/icons";
 import { Link } from "react-router-dom";
@@ -120,19 +121,26 @@ export function _Vacation(props: VacationProps) {
             <CardActions>
               {isAdmin ? (
                 <>
-                  <IconButton onClick={openModal}>
-                    <Clear />
-                  </IconButton>
-                  <Link to={`/edit/${id}`}>
-                    <IconButton>
-                      <Edit />
+                  <Tooltip title="Delete">
+                    <IconButton onClick={openModal}>
+                      <Clear />
                     </IconButton>
+                  </Tooltip>
+
+                  <Link to={`/edit/${id}`}>
+                    <Tooltip title="Edit">
+                      <IconButton>
+                        <Edit />
+                      </IconButton>
+                    </Tooltip>
                   </Link>
                 </>
               ) : (
-                <IconButton onClick={handleToggleFollow}>
-                  {isFollowing ? <Favorite /> : <FavoriteBorder />}
-                </IconButton>
+                <Tooltip title={isFollowing ? "Unfollow" : "Follow"}>
+                  <IconButton onClick={handleToggleFollow}>
+                    {isFollowing ? <Favorite /> : <FavoriteBorder />}
+                  </IconButton>
+                </Tooltip>
               )}
             </CardActions>
           </Card>

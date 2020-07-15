@@ -1,5 +1,5 @@
 import React from "react";
-import { Snackbar, IconButton } from "@material-ui/core";
+import { Snackbar, IconButton, Tooltip } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
 
 interface ErrorBarProps {
@@ -18,9 +18,11 @@ export function _ErrorBar(props: ErrorBarProps) {
       onClose={dismissError}
       message={error}
       action={
-        <IconButton size="small" color="inherit" onClick={dismissError}>
-          <Close fontSize="small" />
-        </IconButton>
+        <Tooltip title="Dismiss">
+          <IconButton size="small" color="inherit" onClick={dismissError}>
+            <Close fontSize="small" />
+          </IconButton>
+        </Tooltip>
       }
     ></Snackbar>
   );

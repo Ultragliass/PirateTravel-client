@@ -7,6 +7,7 @@ import {
   InputBase,
   IconButton,
   Typography,
+  Tooltip,
 } from "@material-ui/core";
 import {
   Search,
@@ -55,36 +56,44 @@ export function _Navbar(props: NavbarProps) {
                 </div>
 
                 <Link to="/">
-                  <IconButton
-                    edge="end"
-                    className={classes.button}
-                    onClick={handleUserLogout}
-                  >
-                    <MeetingRoom />
-                  </IconButton>
+                  <Tooltip title="Logout">
+                    <IconButton
+                      edge="end"
+                      className={classes.button}
+                      onClick={handleUserLogout}
+                    >
+                      <MeetingRoom />
+                    </IconButton>
+                  </Tooltip>
                 </Link>
               </>
             ) : (
               <>
                 <Link to="/">
-                  <IconButton edge="end" className={classes.button}>
-                    <ExitToApp />
-                  </IconButton>
+                  <Tooltip title="Login">
+                    <IconButton edge="end" className={classes.button}>
+                      <ExitToApp />
+                    </IconButton>
+                  </Tooltip>
                 </Link>
 
                 <Link to="/register">
-                  <IconButton edge="end" className={classes.button}>
-                    <AssignmentInd />
-                  </IconButton>
+                  <Tooltip title="Register">
+                    <IconButton edge="end" className={classes.button}>
+                      <AssignmentInd />
+                    </IconButton>
+                  </Tooltip>
                 </Link>
               </>
             )}
 
             {isLoggedIn && isAdmin ? (
               <Link to="/statistics">
-                <IconButton edge="end" className={classes.button}>
-                  <Equalizer />
-                </IconButton>
+                <Tooltip title="Statistics">
+                  <IconButton edge="end" className={classes.button}>
+                    <Equalizer />
+                  </IconButton>
+                </Tooltip>
               </Link>
             ) : null}
           </Toolbar>

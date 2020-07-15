@@ -50,7 +50,7 @@ export const getVacationsAction = () => {
         },
       });
 
-      const vacations = response.data;
+      const { vacations } = response.data;
 
       dispatch({
         type: Actions.getVacations,

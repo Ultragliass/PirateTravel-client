@@ -3,7 +3,13 @@ import { useVacationPageStyles } from "./styles";
 import { IUser } from "../../models/user";
 import { Vacation } from "../Vacation";
 import React from "react";
-import { Container, Typography, Grid, IconButton } from "@material-ui/core";
+import {
+  Container,
+  Typography,
+  Grid,
+  IconButton,
+  Tooltip,
+} from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { AddCircle } from "@material-ui/icons";
 
@@ -44,9 +50,11 @@ export function _VacationsPage(props: VacationsPageProps) {
                 <Grid container spacing={2} justify="center">
                   <Grid item>
                     <Link to="/add">
-                      <IconButton className={classes.button}>
-                        <AddCircle className={classes.icon} />
-                      </IconButton>
+                      <Tooltip title="Add">
+                        <IconButton className={classes.button}>
+                          <AddCircle className={classes.icon} />
+                        </IconButton>
+                      </Tooltip>
                     </Link>
                   </Grid>
                 </Grid>

@@ -2,7 +2,7 @@ import { IVacation } from "../../models/vacation";
 import { useStatisticsPageStyles } from "./styles";
 import React from "react";
 import { ChartData, Bar } from "react-chartjs-2";
-import { Grid, IconButton } from "@material-ui/core";
+import { Grid, IconButton, Tooltip } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { ArrowBack } from "@material-ui/icons";
 
@@ -54,9 +54,11 @@ export function _StatisticsPage(props: StatisticsPageProps) {
         <Grid container justify="flex-start">
           <Grid item>
             <Link to="/vacations">
-              <IconButton className={classes.button}>
-                <ArrowBack />
-              </IconButton>
+              <Tooltip title="Back">
+                <IconButton className={classes.button}>
+                  <ArrowBack />
+                </IconButton>
+              </Tooltip>
             </Link>
           </Grid>
         </Grid>

@@ -134,7 +134,7 @@ export function _RegisterPage(props: RegisterPageProps) {
             color="primary"
             className={classes.submit}
           >
-            Sign Up
+            Register
           </Button>
         </form>
       </div>
