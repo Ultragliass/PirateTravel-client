@@ -8,7 +8,10 @@ import { RegisterPage } from "./components/RegisterPage";
 import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 import BaseTransition from "./components/BaseTransition/BaseTransition";
 import { VacationPage } from "./components/VacationsPage";
-import { connectSocketIoAction } from "./actions/vacationActions";
+import {
+  connectSocketIoAction,
+  getVacationsAction,
+} from "./actions/vacationActions";
 import { ErrorBar } from "./components/ErrorBar";
 import { AdminRoute } from "./components/AdminRoute/AdminRoute";
 import { EditPage } from "./components/EditPage";
@@ -22,6 +25,7 @@ import { connect } from "react-redux";
 import { CssBaseline } from "@material-ui/core";
 import { Switch, Redirect } from "react-router-dom";
 import { Socket } from "socket.io-client";
+import { IVacation } from "./models/vacation";
 
 interface AppProps {
   handleReturningUser(): void;
@@ -29,6 +33,8 @@ interface AppProps {
   isLoggedIn: boolean;
   socket: null | typeof Socket;
   isAdmin: boolean;
+  vacations: IVacation[];
+  getVacations(): void;
 }
 
 class _App extends React.PureComponent<AppProps> {
@@ -36,6 +42,8 @@ class _App extends React.PureComponent<AppProps> {
     const { isLoggedIn, isAdmin } = this.props;
 
     this.handleSocketConnect();
+
+    this.handleGetVacations();
 
     return (
       <>
@@ -111,11 +119,19 @@ class _App extends React.PureComponent<AppProps> {
     await handleReturningUser();
   };
 
-  handleSocketConnect = async () => {
+  handleSocketConnect = () => {
     const { connectSocketIo, socket, isLoggedIn } = this.props;
 
     if (!socket && isLoggedIn) {
       connectSocketIo();
+    }
+  };
+
+  handleGetVacations = async () => {
+    const { isLoggedIn, getVacations, vacations } = this.props;
+
+    if (isLoggedIn && !vacations.length) {
+      await getVacations();
     }
   };
 }
@@ -125,12 +141,14 @@ const mapStateToProps = (state: IState) => {
     isLoggedIn: state.isLoggedIn,
     socket: state.socket,
     isAdmin: state.isAdmin,
+    vacations: state.vacations,
   };
 };
 
 const mapDispatchToProps = {
   handleReturningUser: handleReturningUserAction,
   connectSocketIo: connectSocketIoAction,
+  getVacations: getVacationsAction,
 };
 
 const App = connect(mapStateToProps, mapDispatchToProps)(_App);

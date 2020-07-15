@@ -7,6 +7,7 @@ import {
   Grid,
   TextField,
   IconButton,
+  Tooltip,
 } from "@material-ui/core";
 import { Clear, Check } from "@material-ui/icons";
 
@@ -38,7 +39,7 @@ export function _AddPage(props: AddPageProps) {
   const [image, setImage] = useState("");
 
   const isDisabled =
-    !description || !destination || !startDate || !endDate || !price || !image;
+    description.length < 30 || !destination || !startDate || !endDate || !price || !image;
 
   const formatDate = (date: any) =>
     new Date(new Date(date).toString().split("GMT")[0] + " UTC")
@@ -107,7 +108,7 @@ export function _AddPage(props: AddPageProps) {
           <Grid item xs={12} sm={6}>
             <TextField
               name="destination"
-              label="Destination"
+              label={`Destination (${destination.length}/30)`}
               inputProps={{ maxLength: 30 }}
               fullWidth
               required
@@ -130,7 +131,7 @@ export function _AddPage(props: AddPageProps) {
           <Grid item xs={12}>
             <TextField
               name="description"
-              label="Description"
+              label={`Description (30) (${description.length}/200)`}
               fullWidth
               required
               onChange={handleInputChange}
@@ -166,8 +167,8 @@ export function _AddPage(props: AddPageProps) {
           <Grid item xs={12}>
             <TextField
               name="image"
-              label="Image URL"
-              inputProps={{ maxLength: 100 }}
+              label={`Image URL (PNG/JPG) (${image.length}/200)`}
+              inputProps={{ maxLength: 200 }}
               fullWidth
               required
               onChange={handleInputChange}
@@ -178,18 +179,22 @@ export function _AddPage(props: AddPageProps) {
 
         <div className={classes.buttons}>
           <Link to="/vacations">
-            <IconButton className={classes.button}>
-              <Clear />
-            </IconButton>
+            <Tooltip title="Cancel">
+              <IconButton className={classes.button}>
+                <Clear />
+              </IconButton>
+            </Tooltip>
           </Link>
 
-          <IconButton
-            className={classes.button}
-            disabled={isDisabled}
-            type="submit"
-          >
-            <Check />
-          </IconButton>
+          <Tooltip title="Confirm">
+            <IconButton
+              className={classes.button}
+              disabled={isDisabled}
+              type="submit"
+            >
+              <Check />
+            </IconButton>
+          </Tooltip>
         </div>
       </Paper>
     </form>

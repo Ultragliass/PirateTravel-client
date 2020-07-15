@@ -14,20 +14,15 @@ import { Link } from "react-router-dom";
 import { AddCircle } from "@material-ui/icons";
 
 interface VacationsPageProps {
-  getVacations(): void;
   vacations: IVacation[];
   userData: null | IUser;
   isAdmin: boolean;
 }
 
 export function _VacationsPage(props: VacationsPageProps) {
-  const { getVacations, vacations, userData, isAdmin } = props;
+  const { vacations, userData, isAdmin } = props;
 
   const classes = useVacationPageStyles();
-
-  if (!vacations.length) {
-    getVacations();
-  }
 
   return (
     <>

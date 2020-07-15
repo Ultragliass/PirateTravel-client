@@ -7,6 +7,7 @@ import {
   TextField,
   Paper,
   IconButton,
+  Tooltip,
 } from "@material-ui/core";
 import { Link, useParams, Redirect, useHistory } from "react-router-dom";
 import { Check, Clear } from "@material-ui/icons";
@@ -60,7 +61,7 @@ export function _EditPage(props: EditPageProps) {
   }
 
   const isDisabled =
-    description === newDescription &&
+    (description === newDescription || newDescription.length < 30) &&
     destination === newDestination &&
     startDate === newStartDate &&
     endDate === newEndDate &&
@@ -136,7 +137,7 @@ export function _EditPage(props: EditPageProps) {
           <Grid item xs={12} sm={6}>
             <TextField
               name="destination"
-              label="Destination"
+              label={`Destination (${newDestination.length}/30)`}
               inputProps={{ maxLength: 30 }}
               fullWidth
               required
@@ -159,7 +160,7 @@ export function _EditPage(props: EditPageProps) {
           <Grid item xs={12}>
             <TextField
               name="description"
-              label="Description"
+              label={`Description (30) (${newDescription.length}/200)`}
               fullWidth
               required
               onChange={handleInputChange}
@@ -195,8 +196,8 @@ export function _EditPage(props: EditPageProps) {
           <Grid item xs={12}>
             <TextField
               name="image"
-              label="Image URL"
-              inputProps={{ maxLength: 100 }}
+              label={`Image URL (PNG/JPG) (${newImage.length}/200)`}
+              inputProps={{ maxLength: 200 }}
               fullWidth
               required
               onChange={handleInputChange}
@@ -207,18 +208,22 @@ export function _EditPage(props: EditPageProps) {
 
         <div className={classes.buttons}>
           <Link to="/vacations">
-            <IconButton className={classes.button}>
-              <Clear />
-            </IconButton>
+            <Tooltip title="Cancel">
+              <IconButton className={classes.button}>
+                <Clear />
+              </IconButton>
+            </Tooltip>
           </Link>
 
-          <IconButton
-            className={classes.button}
-            disabled={isDisabled}
-            type="submit"
-          >
-            <Check />
-          </IconButton>
+          <Tooltip title="Confirm">
+            <IconButton
+              className={classes.button}
+              disabled={isDisabled}
+              type="submit"
+            >
+              <Check />
+            </IconButton>
+          </Tooltip>
         </div>
       </Paper>
     </form>

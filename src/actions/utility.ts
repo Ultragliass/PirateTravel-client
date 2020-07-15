@@ -13,6 +13,19 @@ export function startLoading(dispatch: Dispatch<IAction>): void {
 export function displayError(dispatch: Dispatch<IAction>, err: AxiosError) {
   const error = err.response?.data.msg;
 
+  if (!error) {
+    return;
+  }
+
+  if (error.includes('"image" with')) {
+    return dispatch({
+      type: Actions.displayError,
+      payload: {
+        error: "IMAGE URL INVALID.",
+      },
+    });
+  }
+
   if (error.includes('"password" with')) {
     return dispatch({
       type: Actions.displayError,
