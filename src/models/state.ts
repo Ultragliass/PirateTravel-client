@@ -7,6 +7,7 @@ export interface IState {
   isAdmin: boolean;
   vacations: IVacation[];
   error: null | string;
+  message: null | string;
   isLoggedIn: boolean;
   isLoading: boolean;
   socket: null | typeof Socket;

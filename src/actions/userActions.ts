@@ -2,7 +2,12 @@ import { IAction } from "../models/action";
 import { IRegister } from "../models/register";
 import { Actions } from "../redux/reducer";
 import { getToken, clearToken, saveToken } from "./token";
-import { startLoading, displayError, validateInputs } from "./utility";
+import {
+  startLoading,
+  displayError,
+  validateInputs,
+  connectSocketIo,
+} from "./utility";
 import { Dispatch } from "react";
 import axios from "axios";
 
@@ -36,6 +41,8 @@ export const handleReturningUserAction = () => {
           userData,
         },
       });
+
+      await connectSocketIo(dispatch);
     } catch (err) {
       clearToken();
 
@@ -78,6 +85,8 @@ export const loginUserAction = (username: string, password: string) => {
           userData,
         },
       });
+
+      await connectSocketIo(dispatch);
     } catch (error) {
       displayError(dispatch, error);
     }

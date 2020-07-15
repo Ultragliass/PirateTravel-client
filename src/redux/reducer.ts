@@ -7,6 +7,7 @@ const initState: IState = {
   isAdmin: false,
   vacations: [],
   error: null,
+  message: null,
   isLoggedIn: false,
   isLoading: false,
   socket: null,
@@ -37,6 +38,7 @@ export const reducer = (state: IState = initState, action: IAction): IState => {
         isLoggedIn: true,
         isLoading: false,
         error: null,
+        message: null,
       };
     }
 
@@ -54,6 +56,7 @@ export const reducer = (state: IState = initState, action: IAction): IState => {
         socket,
         isLoading: false,
         error: null,
+        message: null,
       };
     }
 
@@ -66,11 +69,12 @@ export const reducer = (state: IState = initState, action: IAction): IState => {
         ...state,
         vacations,
         error: null,
+        message: null,
       };
     }
 
     case Actions.addVacation: {
-      const { vacation } = action.payload;
+      const { vacation, msg } = action.payload;
 
       const modifiedVacations = state.vacations.slice();
 
@@ -81,11 +85,12 @@ export const reducer = (state: IState = initState, action: IAction): IState => {
         vacations: modifiedVacations,
         isLoading: false,
         error: null,
+        message: state.isAdmin ? msg : `New ${msg}`,
       };
     }
 
     case Actions.toggleFollow: {
-      const { id, isFollowing } = action.payload;
+      const { id, isFollowing, msg } = action.payload;
 
       const modifiedVacations = state.vacations.slice();
 
@@ -106,11 +111,31 @@ export const reducer = (state: IState = initState, action: IAction): IState => {
         vacations: modifiedVacations,
         isLoading: false,
         error: null,
+        message: state.isAdmin ? null : msg,
+      };
+    }
+
+    case Actions.editVacation: {
+      const { vacation, msg } = action.payload;
+
+      const modifiedVacations = state.vacations.slice();
+
+      const index = modifiedVacations.findIndex((v) => v.id === vacation.id);
+
+      modifiedVacations[index] = vacation;
+      modifiedVacations[index].isFollowing = state.vacations[index].isFollowing;
+
+      return {
+        ...state,
+        vacations: modifiedVacations,
+        isLoading: false,
+        error: null,
+        message: state.isAdmin ? msg : `${vacation.destination}: ${msg}`,
       };
     }
 
     case Actions.deleteVacation: {
-      const { id } = action.payload;
+      const { id, msg } = action.payload;
 
       const modifiedVacations = state.vacations.slice();
 
@@ -125,24 +150,7 @@ export const reducer = (state: IState = initState, action: IAction): IState => {
         vacations: modifiedVacations,
         isLoading: false,
         error: null,
-      };
-    }
-
-    case Actions.editVacation: {
-      const { vacation } = action.payload;
-
-      const modifiedVacations = state.vacations.slice();
-
-      const index = modifiedVacations.findIndex((v) => v.id === vacation.id);
-
-      modifiedVacations[index] = vacation;
-      modifiedVacations[index].isFollowing = state.vacations[index].isFollowing;
-
-      return {
-        ...state,
-        vacations: modifiedVacations,
-        isLoading: false,
-        error: null,
+        message: state.isAdmin ? msg : "A vacation has been removed.",
       };
     }
 
@@ -160,6 +168,7 @@ export const reducer = (state: IState = initState, action: IAction): IState => {
         ...state,
         error,
         isLoading: false,
+        message: null,
       };
     }
 

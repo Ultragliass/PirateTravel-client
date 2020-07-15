@@ -1,25 +1,24 @@
 import React from "react";
 import { Snackbar } from "@material-ui/core";
-
 import { Alert } from "@material-ui/lab";
 
 interface ErrorBarProps {
-  error: null | string;
+  message: null | string;
   dismissError(): void;
 }
 
-export function _ErrorBar(props: ErrorBarProps) {
-  const { error, dismissError } = props;
+export function _MessageBar(props: ErrorBarProps) {
+  const { message, dismissError } = props;
 
   return (
     <Snackbar
       anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-      open={Boolean(error)}
+      open={Boolean(message)}
       autoHideDuration={2000}
       onClose={dismissError}
     >
-      <Alert onClose={dismissError} severity="error">
-        {error}
+      <Alert onClose={dismissError} severity="success">
+        {message}
       </Alert>
     </Snackbar>
   );

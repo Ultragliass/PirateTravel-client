@@ -4,39 +4,10 @@ import { getToken } from "./token";
 import { Actions } from "../redux/reducer";
 import { logoutUserAction as logoutUser } from "./userActions";
 import { startLoading, displayError } from "./utility";
-import { getSocketActions } from "./socket";
 import { Dispatch } from "react";
-import io from "socket.io-client";
 import axios from "axios";
 
-const SOCKET_ENDPOINT = "http://localhost:3001";
 const BASE_LINK = "http://localhost:3001/vacations/";
-
-export const connectSocketIoAction = () => {
-  return (dispatch: Dispatch<IAction>): void => {
-    startLoading(dispatch);
-
-    const socket = io.connect(SOCKET_ENDPOINT);
-
-    socket.on("connect", () => {
-      socket
-        .emit("authenticate", { token: getToken() })
-        .on("authenticated", () => {
-          dispatch({
-            type: Actions.getSocket,
-            payload: {
-              socket,
-            },
-          });
-
-          getSocketActions();
-        })
-        .on("unauthorized", () => {
-          logoutUser();
-        });
-    });
-  };
-};
 
 export const getVacationsAction = () => {
   return async (dispatch: Dispatch<IAction>): Promise<void> => {
@@ -91,11 +62,14 @@ export const addVacationAction = (vacation: {
 
       success = true;
 
-      const { id } = response.data;
+      const { id, msg } = response.data;
 
       dispatch({
         type: Actions.addVacation,
-        payload: { vacation: { ...vacation, id } },
+        payload: {
+          vacation: { ...vacation, id },
+          msg,
+        },
       });
     } catch (error) {
       displayError(dispatch, error);
@@ -110,7 +84,7 @@ export const toggleFollowAction = (id: number, isFollowing: number) => {
     startLoading(dispatch);
 
     try {
-      await axios({
+      const response = await axios({
         method: "PUT",
         url: `${BASE_LINK}${id}/toggle_follow`,
         headers: {
@@ -118,36 +92,14 @@ export const toggleFollowAction = (id: number, isFollowing: number) => {
         },
       });
 
+      const { msg } = response.data;
+
       dispatch({
         type: Actions.toggleFollow,
         payload: {
           id,
           isFollowing,
-        },
-      });
-    } catch (error) {
-      displayError(dispatch, error);
-    }
-  };
-};
-
-export const deleteVacationAction = (id: Number) => {
-  return async (dispatch: Dispatch<IAction>): Promise<void> => {
-    startLoading(dispatch);
-
-    try {
-      await axios({
-        method: "DELETE",
-        url: `${BASE_LINK}${id}`,
-        headers: {
-          Authorization: `Bearer ${getToken()}`,
-        },
-      });
-
-      dispatch({
-        type: Actions.deleteVacation,
-        payload: {
-          id,
+          msg,
         },
       });
     } catch (error) {
@@ -163,7 +115,7 @@ export const editVacationAction = (vacation: IVacation, id: number) => {
     let success = false;
 
     try {
-      await axios({
+      const response = await axios({
         method: "PUT",
         url: `${BASE_LINK}${id}/edit`,
         headers: {
@@ -172,16 +124,49 @@ export const editVacationAction = (vacation: IVacation, id: number) => {
         data: { ...vacation },
       });
 
+      const { msg } = response.data;
+
       success = true;
 
       dispatch({
         type: Actions.editVacation,
-        payload: { vacation: { ...vacation, id } },
+        payload: {
+          vacation: { ...vacation, id },
+          msg,
+        },
       });
     } catch (error) {
       displayError(dispatch, error);
     } finally {
       return success;
+    }
+  };
+};
+
+export const deleteVacationAction = (id: Number) => {
+  return async (dispatch: Dispatch<IAction>): Promise<void> => {
+    startLoading(dispatch);
+
+    try {
+      const response = await axios({
+        method: "DELETE",
+        url: `${BASE_LINK}${id}`,
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+      });
+
+      const { msg } = response.data;
+
+      dispatch({
+        type: Actions.deleteVacation,
+        payload: {
+          id,
+          msg,
+        },
+      });
+    } catch (error) {
+      displayError(dispatch, error);
     }
   };
 };

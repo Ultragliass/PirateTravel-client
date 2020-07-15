@@ -8,10 +8,7 @@ import { RegisterPage } from "./components/RegisterPage";
 import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 import BaseTransition from "./components/BaseTransition/BaseTransition";
 import { VacationPage } from "./components/VacationsPage";
-import {
-  connectSocketIoAction,
-  getVacationsAction,
-} from "./actions/vacationActions";
+import { getVacationsAction } from "./actions/vacationActions";
 import { ErrorBar } from "./components/ErrorBar";
 import { AdminRoute } from "./components/AdminRoute/AdminRoute";
 import { EditPage } from "./components/EditPage";
@@ -24,14 +21,12 @@ import React, { ChangeEvent } from "react";
 import { connect } from "react-redux";
 import { CssBaseline } from "@material-ui/core";
 import { Switch, Redirect } from "react-router-dom";
-import { Socket } from "socket.io-client";
 import { IVacation } from "./models/vacation";
+import { MessageBar } from "./components/MessageBar";
 
 interface AppProps {
   handleReturningUser(): void;
-  connectSocketIo(): void;
   isLoggedIn: boolean;
-  socket: null | typeof Socket;
   isAdmin: boolean;
   vacations: IVacation[];
   getVacations(): void;
@@ -50,8 +45,6 @@ class _App extends React.PureComponent<AppProps, AppState> {
     const { isLoggedIn, isAdmin } = this.props;
 
     const { value } = this.state;
-
-    this.handleSocketConnect();
 
     this.handleGetVacations();
 
@@ -117,6 +110,7 @@ class _App extends React.PureComponent<AppProps, AppState> {
           </Switch>
         </TransitionGroup>
 
+        <MessageBar />
         <ErrorBar />
         <Loading />
       </>
@@ -135,14 +129,6 @@ class _App extends React.PureComponent<AppProps, AppState> {
     this.setState({ value });
   };
 
-  handleSocketConnect = () => {
-    const { connectSocketIo, socket, isLoggedIn } = this.props;
-
-    if (!socket && isLoggedIn) {
-      connectSocketIo();
-    }
-  };
-
   handleGetVacations = async () => {
     const { isLoggedIn, getVacations, vacations } = this.props;
 
@@ -155,7 +141,6 @@ class _App extends React.PureComponent<AppProps, AppState> {
 const mapStateToProps = (state: IState) => {
   return {
     isLoggedIn: state.isLoggedIn,
-    socket: state.socket,
     isAdmin: state.isAdmin,
     vacations: state.vacations,
   };
@@ -163,7 +148,6 @@ const mapStateToProps = (state: IState) => {
 
 const mapDispatchToProps = {
   handleReturningUser: handleReturningUserAction,
-  connectSocketIo: connectSocketIoAction,
   getVacations: getVacationsAction,
 };
 
