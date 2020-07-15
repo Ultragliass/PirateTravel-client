@@ -20,7 +20,7 @@ import { StatisticsPage } from "./components/StatisticsPage";
 import { TransitionGroup } from "react-transition-group";
 import "fontsource-roboto";
 import "./App.css";
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { connect } from "react-redux";
 import { CssBaseline } from "@material-ui/core";
 import { Switch, Redirect } from "react-router-dom";
@@ -37,9 +37,19 @@ interface AppProps {
   getVacations(): void;
 }
 
-class _App extends React.PureComponent<AppProps> {
+interface AppState {
+  value: string;
+}
+
+class _App extends React.PureComponent<AppProps, AppState> {
+  state = {
+    value: "",
+  };
+
   render() {
     const { isLoggedIn, isAdmin } = this.props;
+
+    const { value } = this.state;
 
     this.handleSocketConnect();
 
@@ -48,7 +58,7 @@ class _App extends React.PureComponent<AppProps> {
     return (
       <>
         <CssBaseline />
-        <Navbar />
+        <Navbar value={value} handleInputChange={this.handleInputChange} />
 
         <TransitionGroup>
           <Switch>
@@ -87,7 +97,7 @@ class _App extends React.PureComponent<AppProps> {
 
             <PrivateRoute isLoggedIn={isLoggedIn} exact path="/vacations">
               <BaseTransition>
-                <VacationPage />
+                <VacationPage value={value} />
               </BaseTransition>
             </PrivateRoute>
 
@@ -117,6 +127,12 @@ class _App extends React.PureComponent<AppProps> {
     const { handleReturningUser } = this.props;
 
     await handleReturningUser();
+  };
+
+  handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.currentTarget;
+
+    this.setState({ value });
   };
 
   handleSocketConnect = () => {

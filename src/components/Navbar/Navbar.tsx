@@ -1,6 +1,6 @@
 import { HideOnScroll } from "../HideOnScroll/HideOnScroll";
 import { useNavbarStyles } from "./styles";
-import React from "react";
+import React, { ChangeEvent } from "react";
 import {
   AppBar,
   Toolbar,
@@ -22,11 +22,13 @@ interface NavbarProps {
   isLoggedIn: boolean;
   isAdmin: boolean;
   logoutUser(): void;
+  handleInputChange(e: ChangeEvent<HTMLInputElement>): void;
+  value: string;
 }
 
 export function _Navbar(props: NavbarProps) {
   const classes = useNavbarStyles();
-  const { isLoggedIn, isAdmin, logoutUser } = props;
+  const { isLoggedIn, isAdmin, logoutUser, value, handleInputChange } = props;
 
   const handleUserLogout = () => {
     logoutUser();
@@ -52,6 +54,8 @@ export function _Navbar(props: NavbarProps) {
                       root: classes.inputRoot,
                       input: classes.input,
                     }}
+                    value={value}
+                    onChange={handleInputChange}
                   />
                 </div>
 
