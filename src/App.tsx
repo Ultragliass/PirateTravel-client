@@ -30,6 +30,7 @@ interface AppProps {
   isAdmin: boolean;
   vacations: IVacation[];
   getVacations(): void;
+  attemptedLogin: boolean;
 }
 
 interface AppState {
@@ -42,9 +43,13 @@ class _App extends React.PureComponent<AppProps, AppState> {
   };
 
   render() {
-    const { isLoggedIn, isAdmin } = this.props;
+    const { isLoggedIn, isAdmin, attemptedLogin } = this.props;
 
     const { value } = this.state;
+
+    if (!attemptedLogin) {
+      return null;
+    }
 
     this.handleGetVacations();
 
@@ -143,6 +148,7 @@ const mapStateToProps = (state: IState) => {
     isLoggedIn: state.isLoggedIn,
     isAdmin: state.isAdmin,
     vacations: state.vacations,
+    attemptedLogin: state.attemptedLogin
   };
 };
 
