@@ -1,7 +1,40 @@
 import { getState, getDispatch } from "..";
 import { Actions } from "../redux/reducer";
+import { startLoading } from "./utility";
+import { getToken } from "./token";
+import { logoutUserAction as logoutUser } from "./userActions";
+import io from "socket.io-client";
 
-export function getSocketActions() {
+const SOCKET_ENDPOINT = "http://localhost:3001";
+
+export const connectSocketIo = (): void => {
+  const dispatch = getDispatch();
+
+  startLoading(dispatch);
+
+  const socket = io.connect(SOCKET_ENDPOINT);
+
+  socket.on("connect", () => {
+    socket
+      .emit("authenticate", { token: getToken() })
+      .on("authenticated", () => {
+        console.log({ ass: "ass" });
+
+        dispatch({
+          type: Actions.getSocket,
+          payload: {
+            socket,
+          },
+        });
+        getSocketActions();
+      })
+      .on("unauthorized", () => {
+        logoutUser();
+      });
+  });
+};
+
+function getSocketActions() {
   const { socket } = getState();
 
   const dispatch = getDispatch();

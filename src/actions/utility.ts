@@ -1,40 +1,7 @@
 import { IAction } from "../models/action";
 import { Actions } from "../redux/reducer";
-import { getToken } from "./token";
-import { getSocketActions } from "./socket";
-import { logoutUserAction } from "./userActions";
 import { AxiosError } from "axios";
 import { Dispatch } from "react";
-import io from "socket.io-client";
-
-const SOCKET_ENDPOINT = "http://localhost:3001";
-
-export const connectSocketIo = (dispatch: Dispatch<IAction>): void => {
-  startLoading(dispatch);
-
-  
-  const socket = io.connect(SOCKET_ENDPOINT);
-
-  socket.on("connect", () => {
-    socket
-      .emit("authenticate", { token: getToken() })
-      .on("authenticated", () => {
-        console.log({ass:"ass"})
-
-        dispatch({
-          type: Actions.getSocket,
-          payload: {
-            socket,
-          },
-        });
-
-        getSocketActions();
-      })
-      .on("unauthorized", () => {
-        logoutUserAction();
-      });
-  });
-};
 
 export function startLoading(dispatch: Dispatch<IAction>): void {
   dispatch({
