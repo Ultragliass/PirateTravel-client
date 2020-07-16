@@ -38,7 +38,7 @@ export const handleReturningUserAction = () => {
         },
       });
 
-      await connectSocketIo();
+      connectSocketIo();
     } catch (err) {
       clearToken();
 
@@ -82,7 +82,7 @@ export const loginUserAction = (username: string, password: string) => {
         },
       });
 
-      await connectSocketIo();
+      connectSocketIo();
     } catch (error) {
       displayError(dispatch, error);
     }
@@ -118,6 +118,8 @@ export const registerUserAction = (user: IRegister) => {
           userData,
         },
       });
+
+      connectSocketIo();
     } catch (error) {
       displayError(dispatch, error);
     }
