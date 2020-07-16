@@ -3,6 +3,7 @@ import { IAction } from "../models/action";
 import { IVacation } from "../models/vacation";
 
 const initState: IState = {
+  attemptedLogin: false,
   userData: null,
   isAdmin: false,
   vacations: [],
@@ -39,13 +40,17 @@ export const reducer = (state: IState = initState, action: IAction): IState => {
         isLoading: false,
         error: null,
         message: null,
+        attemptedLogin: true,
       };
     }
 
     case Actions.logoutUser: {
       state.socket?.close();
 
-      return initState;
+      return {
+        ...initState,
+        attemptedLogin: true,
+      };
     }
 
     case Actions.getSocket: {

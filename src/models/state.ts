@@ -3,6 +3,7 @@ import { IUser } from "./user";
 import { Socket } from "socket.io-client";
 
 export interface IState {
+  attemptedLogin: boolean;
   userData: null | IUser;
   isAdmin: boolean;
   vacations: IVacation[];
