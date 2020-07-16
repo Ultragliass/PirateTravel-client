@@ -90,7 +90,7 @@ export const reducer = (state: IState = initState, action: IAction): IState => {
         vacations: modifiedVacations,
         isLoading: false,
         error: null,
-        message: state.isAdmin ? msg : `New ${msg}`,
+        message: state.isAdmin ? msg : `NEW VACATION ADDED.`,
       };
     }
 
@@ -135,7 +135,7 @@ export const reducer = (state: IState = initState, action: IAction): IState => {
         vacations: modifiedVacations,
         isLoading: false,
         error: null,
-        message: state.isAdmin ? msg : `${vacation.destination}: ${msg}`,
+        message: state.isAdmin ? msg : `${vacation.destination}: UPDATED`,
       };
     }
 
@@ -155,7 +155,7 @@ export const reducer = (state: IState = initState, action: IAction): IState => {
         vacations: modifiedVacations,
         isLoading: false,
         error: null,
-        message: state.isAdmin ? msg : "A vacation has been removed.",
+        message: state.isAdmin ? msg : "A VACATION HAS BEEN REMOVED.",
       };
     }
 

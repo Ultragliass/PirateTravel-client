@@ -35,7 +35,24 @@ export function _EditPage(props: EditPageProps) {
 
   const classes = useEditPageStyles();
 
+  const history = useHistory();
+
+  const [newDescription, setNewDescription] = useState("");
+  const [newDestination, setNewDestination] = useState("");
+  const [newStartDate, setNewStartDate] = useState(new Date());
+  const [newEndDate, setNewEndDate] = useState(new Date());
+  const [newPrice, setNewPrice] = useState("" as number | string);
+  const [newImage, setNewImage] = useState("");
+
+  if (!vacations.length) {
+    return null;
+  }
+
   const index = vacations.findIndex((vacation) => vacation.id === Number(id));
+
+  if (index === -1) {
+    return <Redirect to="/vacations" />;
+  }
 
   const {
     description,
@@ -47,17 +64,13 @@ export function _EditPage(props: EditPageProps) {
     followers,
   } = vacations[index];
 
-  const history = useHistory();
-
-  const [newDescription, setNewDescription] = useState(description);
-  const [newDestination, setNewDestination] = useState(destination);
-  const [newStartDate, setNewStartDate] = useState(startDate);
-  const [newEndDate, setNewEndDate] = useState(endDate);
-  const [newPrice, setNewPrice] = useState(price);
-  const [newImage, setNewImage] = useState(image);
-
-  if (index === -1) {
-    return <Redirect to="/vacations" />;
+  if (!newDescription) {
+    setNewDescription(description);
+    setNewDestination(destination);
+    setNewStartDate(startDate);
+    setNewEndDate(endDate);
+    setNewPrice(price);
+    setNewImage(image);
   }
 
   const isDisabled =

@@ -14,7 +14,10 @@ export const handleReturningUserAction = () => {
     const token = getToken();
 
     if (!token) {
-      return;
+      return dispatch({
+        type: Actions.logoutUser,
+        payload: {},
+      });
     }
 
     startLoading(dispatch);
