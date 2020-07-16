@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Dialog,
-  DialogTitle,
-  DialogActions,
-  Button,
-  useTheme,
-  useMediaQuery,
-} from "@material-ui/core";
+import { Dialog, DialogTitle, DialogActions, Button } from "@material-ui/core";
 
 interface ConfirmModalProps {
   open: boolean;
@@ -18,11 +11,9 @@ interface ConfirmModalProps {
 export function ConfirmModal(props: ConfirmModalProps) {
   const { open, handleClose, handleConfirm, title } = props;
 
-  const fullscreen = useMediaQuery(useTheme().breakpoints.down("sm"));
-
   return (
     <>
-      <Dialog fullScreen={fullscreen} open={open} onClose={handleClose}>
+      <Dialog open={open} onClose={handleClose}>
         <DialogTitle>{title}</DialogTitle>
         <DialogActions style={{ justifyContent: "center" }}>
           <Button autoFocus onClick={handleClose} color="primary">
