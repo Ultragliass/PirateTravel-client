@@ -10,7 +10,7 @@ export function startLoading(dispatch: Dispatch<IAction>): void {
   });
 }
 
-export function displayError(dispatch: Dispatch<IAction>, err: AxiosError) {
+export function displayError(dispatch: Dispatch<IAction>, err: AxiosError): void {
   const error = err.response?.data.msg;
 
   if (!error) {

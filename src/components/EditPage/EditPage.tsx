@@ -73,6 +73,10 @@ export function _EditPage(props: EditPageProps) {
     setNewImage(image);
   }
 
+  /*
+  The unholy code above is because of React hook rules.
+  */
+
   const isDisabled =
     (description === newDescription || newDescription.length < 30) &&
     destination === newDestination &&
@@ -81,12 +85,12 @@ export function _EditPage(props: EditPageProps) {
     price === newPrice &&
     image === newImage;
 
-  const formatDate = (date: any) =>
+  const formatDate = (date: any): string =>
     new Date(new Date(date).toString().split("GMT")[0] + " UTC")
       .toISOString()
       .split(".")[0];
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = event.currentTarget;
 
     switch (name) {
@@ -116,7 +120,7 @@ export function _EditPage(props: EditPageProps) {
     }
   };
 
-  const handleEditVacation = async (event: FormEvent) => {
+  const handleEditVacation = async (event: FormEvent): Promise<void> => {
     event.preventDefault();
 
     const success = await editVacation(

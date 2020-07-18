@@ -31,7 +31,7 @@ export function _LoginPage(props: LoginPageProps) {
     setPassword(value);
   };
 
-  const handleUserLogin = (event: FormEvent) => {
+  const handleUserLogin = (event: FormEvent): void => {
     event.preventDefault();
 
     loginUser(username, password);

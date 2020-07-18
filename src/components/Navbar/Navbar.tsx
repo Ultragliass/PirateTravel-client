@@ -8,14 +8,9 @@ import {
   IconButton,
   Typography,
   Tooltip,
+  Button,
 } from "@material-ui/core";
-import {
-  Search,
-  ExitToApp,
-  AssignmentInd,
-  Equalizer,
-  MeetingRoom,
-} from "@material-ui/icons";
+import { Search, Equalizer, MeetingRoom } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 
 interface NavbarProps {
@@ -30,7 +25,7 @@ export function _Navbar(props: NavbarProps) {
   const classes = useNavbarStyles();
   const { isLoggedIn, isAdmin, logoutUser, value, handleInputChange } = props;
 
-  const handleUserLogout = () => {
+  const handleUserLogout = (): void => {
     logoutUser();
   };
 
@@ -73,19 +68,27 @@ export function _Navbar(props: NavbarProps) {
               </>
             ) : (
               <>
-                <Link to="/">
+                <Link to="/" className={classes.link}>
                   <Tooltip title="Login">
-                    <IconButton edge="end" className={classes.button}>
-                      <ExitToApp />
-                    </IconButton>
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      className={classes.button}
+                    >
+                      Login
+                    </Button>
                   </Tooltip>
                 </Link>
 
-                <Link to="/register">
+                <Link to="/register" className={classes.link}>
                   <Tooltip title="Register">
-                    <IconButton edge="end" className={classes.button}>
-                      <AssignmentInd />
-                    </IconButton>
+                    <Button
+                      variant="outlined"
+                      color="default"
+                      className={classes.button}
+                    >
+                      Register
+                    </Button>
                   </Tooltip>
                 </Link>
               </>

@@ -43,13 +43,13 @@ export function _Vacation(props: VacationProps) {
 
   const [open, setOpen] = useState(false);
 
-  const formatDate = (rawDate: any) => {
+  const formatDate = (rawDate: any): string => {
     const date = new Date(rawDate);
 
     return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
   };
 
-  const handleToggleFollow = () => {
+  const handleToggleFollow = (): void => {
     setFade(false);
 
     setTimeout(async () => {
@@ -59,15 +59,15 @@ export function _Vacation(props: VacationProps) {
     }, 500);
   };
 
-  const openModal = () => {
+  const openModal = (): void => {
     setOpen(true);
   };
 
-  const closeModal = () => {
+  const closeModal = (): void => {
     setOpen(false);
   };
 
-  const handleDeleteVacation = () => {
+  const handleDeleteVacation = (): void => {
     setOpen(false);
     deleteVacation(id);
   };

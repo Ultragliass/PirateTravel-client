@@ -122,19 +122,19 @@ class _App extends React.PureComponent<AppProps, AppState> {
     );
   }
 
-  componentDidMount = async () => {
+  componentDidMount = async (): Promise<void> => {
     const { handleReturningUser } = this.props;
 
     await handleReturningUser();
   };
 
-  handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+  handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const { value } = event.currentTarget;
 
     this.setState({ value });
   };
 
-  handleGetVacations = async () => {
+  handleGetVacations = async (): Promise<void> => {
     const { isLoggedIn, getVacations, vacations } = this.props;
 
     if (isLoggedIn && !vacations.length) {

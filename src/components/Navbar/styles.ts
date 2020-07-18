@@ -61,5 +61,8 @@ export const useNavbarStyles = makeStyles((theme: Theme) =>
         },
       },
     },
+    link: {
+      textDecoration: "none",
+    },
   })
 );

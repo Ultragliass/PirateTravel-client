@@ -41,7 +41,7 @@ export function _AddPage(props: AddPageProps) {
   const isDisabled =
     description.length < 30 || !destination || !startDate || !endDate || !price || !image;
 
-  const formatDate = (date: any) =>
+  const formatDate = (date: any): string =>
     new Date(new Date(date).toString().split("GMT")[0] + " UTC")
       .toISOString()
       .split(".")[0];
@@ -76,7 +76,7 @@ export function _AddPage(props: AddPageProps) {
     }
   };
 
-  const handleAddVacation = async (event: FormEvent) => {
+  const handleAddVacation = async (event: FormEvent): Promise<void> => {
     event.preventDefault();
 
     const success = await addVacation({

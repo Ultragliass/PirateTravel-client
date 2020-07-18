@@ -47,7 +47,7 @@ export function _RegisterPage(props: RegisterPageProps) {
     }
   };
 
-  const handleUserRegister = (event: FormEvent) => {
+  const handleUserRegister = (event: FormEvent): void => {
     event.preventDefault();
 
     registerUser({

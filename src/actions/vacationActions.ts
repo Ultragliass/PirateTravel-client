@@ -12,6 +12,7 @@ const BASE_LINK = "http://localhost:3001/vacations/";
 export const getVacationsAction = () => {
   return async (dispatch: Dispatch<IAction>): Promise<void> => {
     startLoading(dispatch);
+
     try {
       const response = await axios({
         method: "GET",
@@ -112,8 +113,6 @@ export const editVacationAction = (vacation: IVacation, id: number) => {
   return async (dispatch: Dispatch<IAction>): Promise<boolean> => {
     startLoading(dispatch);
 
-    let success = false;
-
     try {
       const response = await axios({
         method: "PUT",
@@ -126,8 +125,6 @@ export const editVacationAction = (vacation: IVacation, id: number) => {
 
       const { msg } = response.data;
 
-      success = true;
-
       dispatch({
         type: Actions.editVacation,
         payload: {
@@ -135,10 +132,12 @@ export const editVacationAction = (vacation: IVacation, id: number) => {
           msg,
         },
       });
+
+      return true;
     } catch (error) {
       displayError(dispatch, error);
-    } finally {
-      return success;
+
+      return false;
     }
   };
 };

@@ -9,10 +9,6 @@ import { BrowserRouter } from "react-router-dom";
 
 const store = createReduxStore();
 
-export function getState() {
-  return store.getState();
-}
-
 export function getDispatch() {
   return store.dispatch;
 }

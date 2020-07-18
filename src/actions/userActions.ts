@@ -73,19 +73,7 @@ export const loginUserAction = (username: string, password: string) => {
         },
       });
 
-      const { token, userData, userType } = response.data;
-
-      saveToken(token);
-
-      dispatch({
-        type: Actions.loginUser,
-        payload: {
-          userType,
-          userData,
-        },
-      });
-
-      connectSocketIo();
+      setUserData(response, dispatch);
     } catch (error) {
       displayError(dispatch, error);
     }
@@ -111,23 +99,28 @@ export const registerUserAction = (user: IRegister) => {
         },
       });
 
-      const { token, userData } = response.data;
-
-      saveToken(token);
-
-      dispatch({
-        type: Actions.loginUser,
-        payload: {
-          userData,
-        },
-      });
-
-      connectSocketIo();
+      setUserData(response, dispatch);
     } catch (error) {
       displayError(dispatch, error);
     }
   };
 };
+
+function setUserData(response: any, dispatch: Dispatch<IAction>): void {
+  const { token, userData, userType } = response.data;
+
+  saveToken(token);
+
+  dispatch({
+    type: Actions.loginUser,
+    payload: {
+      userType,
+      userData,
+    },
+  });
+
+  connectSocketIo();
+}
 
 export const logoutUserAction = () => {
   return (dispatch: Dispatch<IAction>): void => {
