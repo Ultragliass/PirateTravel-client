@@ -1,6 +1,6 @@
-# Vacoronation - client
+# Pirate Travel - client
 
-this will be the client side for the Vacoronation project.
+this will be the client side for the Pirate Travel project.
 
 ## instructions
 
