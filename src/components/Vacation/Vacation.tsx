@@ -12,6 +12,7 @@ import {
   IconButton,
   Grow,
   Tooltip,
+  Button,
 } from "@material-ui/core";
 import { Favorite, FavoriteBorder, Clear, Edit } from "@material-ui/icons";
 import { Link } from "react-router-dom";
@@ -142,6 +143,10 @@ export function _Vacation(props: VacationProps) {
                   </IconButton>
                 </Tooltip>
               )}
+
+              <Link to={`/comments/${id}`} className={classes.link}>
+                <Button variant="outlined">Comments</Button>
+              </Link>
             </CardActions>
           </Card>
         </Grid>

@@ -1,3 +1,8 @@
+interface comment {
+  username: string;
+  comment: string;
+}
+
 export interface IVacation {
   id: number;
   description: string;
@@ -8,4 +13,5 @@ export interface IVacation {
   price: number | string;
   isFollowing: number;
   followers: number;
+  comments: comment[] | null;
 }

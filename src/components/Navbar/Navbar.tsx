@@ -11,7 +11,7 @@ import {
   Button,
 } from "@material-ui/core";
 import { Search, Equalizer, MeetingRoom } from "@material-ui/icons";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 interface NavbarProps {
   isLoggedIn: boolean;
@@ -24,6 +24,16 @@ interface NavbarProps {
 export function _Navbar(props: NavbarProps) {
   const classes = useNavbarStyles();
   const { isLoggedIn, isAdmin, logoutUser, value, handleInputChange } = props;
+
+  const history = useHistory();
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (history.location.pathname !== "/vacations") {
+      history.push("/vacations");
+    }
+
+    handleInputChange(e);
+  };
 
   const handleUserLogout = (): void => {
     logoutUser();
@@ -50,7 +60,7 @@ export function _Navbar(props: NavbarProps) {
                       input: classes.input,
                     }}
                     value={value}
-                    onChange={handleInputChange}
+                    onChange={handleChange}
                   />
                 </div>
 

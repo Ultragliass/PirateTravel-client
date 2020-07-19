@@ -36,6 +36,34 @@ export const getVacationsAction = () => {
   };
 };
 
+export const getVacationCommentsAction = (id: number) => {
+  return async (dispatch: Dispatch<IAction>): Promise<void> => {
+    startLoading(dispatch);
+
+    try {
+      const result = await axios({
+        method: "GET",
+        url: `${BASE_LINK}${id}/comments`,
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+      });
+
+      const { comments } = result.data;
+
+      dispatch({
+        type: Actions.getComments,
+        payload: {
+          comments,
+          id,
+        },
+      });
+    } catch (error) {
+      displayError(dispatch, error);
+    }
+  };
+};
+
 export const addVacationAction = (vacation: {
   description: string;
   destination: string;
@@ -76,6 +104,25 @@ export const addVacationAction = (vacation: {
       displayError(dispatch, error);
     } finally {
       return success;
+    }
+  };
+};
+
+export const addCommentAction = (id: number, comment: string) => {
+  return async (dispatch: Dispatch<IAction>): Promise<void> => {
+    startLoading(dispatch);
+
+    try {
+      await axios({
+        method: "POST",
+        url: `${BASE_LINK}${id}/comments`,
+        headers: {
+          Authorization: `Bearer ${getToken()}`,
+        },
+        data: { comment },
+      });
+    } catch (error) {
+      displayError(dispatch, error);
     }
   };
 };

@@ -140,7 +140,7 @@ export function _EditPage(props: EditPageProps) {
       return;
     }
 
-    history.goBack();
+    history.push("/vacations");
   };
 
   return (

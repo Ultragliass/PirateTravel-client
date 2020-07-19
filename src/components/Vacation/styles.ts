@@ -15,4 +15,7 @@ export const useVacationStyles = makeStyles((theme) => ({
   text: {
     marginBottom: theme.spacing(3),
   },
+  link: {
+    textDecoration: "none",
+  },
 }));

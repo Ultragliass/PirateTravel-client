@@ -74,21 +74,27 @@ export function _VacationsPage(props: VacationsPageProps) {
 
       <Container className={classes.grid} maxWidth="lg">
         <Grid container spacing={7}>
-          {vacations.map((vacation) => {
-            if (!value.trim()) {
-              return <Vacation key={vacation.id} {...vacation} />;
-            }
+          {!vacations.length ? (
+            <h1>
+              Whoops! Looks like we dont have avaliable vacations right now.
+            </h1>
+          ) : (
+            vacations.map((vacation) => {
+              if (!value.trim()) {
+                return <Vacation key={vacation.id} {...vacation} />;
+              }
 
-            if (
-              vacation.destination
-                .toLowerCase()
-                .includes(value.toLocaleLowerCase())
-            ) {
-              return <Vacation key={vacation.id} {...vacation} />;
-            }
+              if (
+                vacation.destination
+                  .toLowerCase()
+                  .includes(value.toLocaleLowerCase())
+              ) {
+                return <Vacation key={vacation.id} {...vacation} />;
+              }
 
-            return null;
-          })}
+              return null;
+            })
+          )}
         </Grid>
       </Container>
     </>

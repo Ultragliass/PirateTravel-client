@@ -1,3 +1,4 @@
+import { IVacation } from "./models/vacation";
 import { IState } from "./models/state";
 import { handleReturningUserAction } from "./actions/userActions";
 import { Navbar } from "./components/Navbar";
@@ -13,6 +14,8 @@ import { ErrorBar } from "./components/ErrorBar";
 import { AdminRoute } from "./components/AdminRoute/AdminRoute";
 import { EditPage } from "./components/EditPage";
 import { AddPage } from "./components/AddPage";
+import { MessageBar } from "./components/MessageBar";
+import { CommentsPage } from "./components/CommentsPage";
 import { StatisticsPage } from "./components/StatisticsPage";
 import { TransitionGroup } from "react-transition-group";
 import "fontsource-roboto";
@@ -21,8 +24,6 @@ import React, { ChangeEvent } from "react";
 import { connect } from "react-redux";
 import { CssBaseline } from "@material-ui/core";
 import { Switch, Redirect } from "react-router-dom";
-import { IVacation } from "./models/vacation";
-import { MessageBar } from "./components/MessageBar";
 
 interface AppProps {
   handleReturningUser(): void;
@@ -93,6 +94,12 @@ class _App extends React.PureComponent<AppProps, AppState> {
               </BaseTransition>
             </AdminRoute>
 
+            <PrivateRoute isLoggedIn={isLoggedIn} exact path="/comments/:id">
+              <BaseTransition>
+                <CommentsPage />
+              </BaseTransition>
+            </PrivateRoute>
+
             <PrivateRoute isLoggedIn={isLoggedIn} exact path="/vacations">
               <BaseTransition>
                 <VacationPage value={value} />
@@ -148,7 +155,7 @@ const mapStateToProps = (state: IState) => {
     isLoggedIn: state.isLoggedIn,
     isAdmin: state.isAdmin,
     vacations: state.vacations,
-    attemptedLogin: state.attemptedLogin
+    attemptedLogin: state.attemptedLogin,
   };
 };
 

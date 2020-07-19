@@ -19,7 +19,9 @@ export enum Actions {
   logoutUser = "LOGOUT_USER",
   getSocket = "GET_SOCKET",
   getVacations = "GET_VACATIONS",
+  getComments = "GET_COMMENTS",
   addVacation = "ADD_VACATION",
+  addComment = "ADD_COMMENT",
   toggleFollow = "TOGGLE_FOLLOW",
   deleteVacation = "DELETE_VACATION",
   editVacation = "EDIT_VACATION",
@@ -78,6 +80,26 @@ export const reducer = (state: IState = initState, action: IAction): IState => {
       };
     }
 
+    case Actions.getComments: {
+      const { comments, id } = action.payload;
+
+      const modifiedVacations = state.vacations.slice();
+
+      const index = modifiedVacations.findIndex(
+        (vacation) => vacation.id === id
+      );
+
+      modifiedVacations[index].comments = comments;
+
+      return {
+        ...state,
+        vacations: modifiedVacations,
+        isLoading: false,
+        error: null,
+        message: null,
+      };
+    }
+
     case Actions.addVacation: {
       const { vacation, msg } = action.payload;
 
@@ -91,6 +113,31 @@ export const reducer = (state: IState = initState, action: IAction): IState => {
         isLoading: false,
         error: null,
         message: state.isAdmin ? msg : `NEW VACATION ADDED.`,
+      };
+    }
+
+    case Actions.addComment: {
+      const { id, comment } = action.payload;
+
+      const modifiedVacations = state.vacations.slice();
+
+      const index = modifiedVacations.findIndex(
+        (vacation) => vacation.id === id
+      );
+
+      modifiedVacations[index].comments?.push(comment);
+
+      const message =
+        comment.username === state.userData?.username
+          ? "COMMENT ADDED SUCCESSFULLY."
+          : `NEW COMMENT IN: ${modifiedVacations[index].destination}`;
+
+      return {
+        ...state,
+        vacations: modifiedVacations,
+        isLoading: false,
+        error: null,
+        message,
       };
     }
 

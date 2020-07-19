@@ -61,6 +61,16 @@ export const connectSocketIo = (): void => {
             },
           });
         });
+
+        socket.on("add_comment", ({ id, comment }: any) => {
+          dispatch({
+            type: Actions.addComment,
+            payload: {
+              id: Number(id),
+              comment,
+            },
+          });
+        });
       })
       .on("unauthorized", () => {
         logoutUser();
